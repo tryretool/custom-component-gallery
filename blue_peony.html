@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Blue Peony</title>
+<style>
+  * { margin: 0; padding: 0; overflow: hidden; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const c = document.getElementById('c');
+const gl = c.getContext('webgl2');
+let mx = innerWidth * .5, my = innerHeight * .5;
+
+function resize() {
+  const dpr = devicePixelRatio || 1;
+  c.width  = innerWidth  * dpr;
+  c.height = innerHeight * dpr;
+  c.style.width  = innerWidth  + 'px';
+  c.style.height = innerHeight + 'px';
+  gl.viewport(0, 0, c.width, c.height);
+}
+addEventListener('resize', resize);
+addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+resize();
+
+/* ── Vertex shader ────────────────────────────────────────────── */
+const VS = `#version 300 es
+in vec2 p;
+void main() { gl_Position = vec4(p, 0, 1); }`;
+
+/* ── Fragment shader ──────────────────────────────────────────── */
+const FS = `#version 300 es
+precision highp float;
+uniform vec2 R;
+uniform float T;
+uniform vec2 M;
+out vec4 O;
+
+// Simplex noise — Ian McEwan / Stefan Gustavson
+vec3 mod289(vec3 x) { return x - floor(x / 289.) * 289.; }
+vec2 mod289(vec2 x) { return x - floor(x / 289.) * 289.; }
+vec3 perm(vec3 x) { return mod289((x * 34. + 1.) * x); }
+float sn(vec2 v) {
+  const vec4 C = vec4(.211324865, .366025404, -.577350269, .024390244);
+  vec2 i  = floor(v + dot(v, C.yy));
+  vec2 x0 = v - i + dot(i, C.xx);
+  vec2 i1  = x0.x > x0.y ? vec2(1,0) : vec2(0,1);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy  -= i1;
+  i = mod289(i);
+  vec3 p = perm(perm(i.y + vec3(0, i1.y, 1)) + i.x + vec3(0, i1.x, 1));
+  vec3 m  = max(.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.);
+  m *= m; m *= m;
+  vec3 g  = 2. * fract(p * C.www) - 1.;
+  vec3 h  = abs(g) - .5;
+  vec3 a0 = g - floor(g + .5);
+  m *= 1.79284291 - .85373472 * (a0*a0 + h*h);
+  return 130. * dot(m, vec3(
+    a0.x*x0.x  + h.x*x0.y,
+    a0.y*x12.x + h.y*x12.y,
+    a0.z*x12.z + h.z*x12.w));
+}
+
+float fbm(vec2 p) {
+  float v = 0., a = .5;
+  for (int i = 0; i < 5; i++, p *= 2., a *= .5) v += a * sn(p);
+  return v;
+}
+
+float cap(vec2 p, vec2 a, vec2 b, float r) {
+  vec2 pa = p - a, ba = b - a;
+  return length(pa - ba * clamp(dot(pa,ba)/dot(ba,ba), 0., 1.)) - r;
+}
+
+void main() {
+  vec2 uv = (gl_FragCoord.xy * 2. - R) / min(R.x, R.y);
+
+  vec2 md = ((M / R) * 2. - 1.) * vec2(1, -1) * .12;
+  float t  = T * .28;
+  vec2 drift = vec2(sin(t*.75)*.022, cos(t*.52)*.016) + md*.06;
+
+  vec2 fp = uv - vec2(0, .08);   // flower center
+
+  // Domain warp — organic silhouette
+  float nx = fbm(fp * 1.3 + drift * 3.  + vec2(0,   t * .10));
+  float ny = fbm(fp * 1.3 + drift * 2.8 + vec2(5.2, t * .09));
+  vec2  wp = fp + vec2(nx, ny) * .13;
+
+  // Peony: full round ball of petals — three harmonic layers of ruffles
+  float r  = length(wp * vec2(0.96, 1.02));  // nearly circular
+  float a  = atan(wp.y, wp.x);
+  float peony = r - (.27 + .055 * cos(7. * a)
+                        + .028 * cos(14. * a + 1.1)
+                        + .013 * cos(21. * a + 2.4));
+
+  // Stem + two compound leaf groups along the stem
+  float stem  = cap(wp, vec2( .000, -.10), vec2( .005, -.63), .024);
+  float leafL = cap(wp, vec2(-.02, -.38), vec2(-.24, -.20), .030);
+  float leafR = cap(wp, vec2( .02, -.38), vec2( .24, -.20), .030);
+  float leafT = cap(wp, vec2(-.01, -.18), vec2(-.16, -.10), .018);
+  float stalk = min(stem, min(leafL, min(leafR, leafT)));
+  float shape = min(peony, stalk);
+
+  // Noise layers: broad + fine grain
+  float nb = fbm(uv * 1.8 + drift * 2.  + vec2( t*.14,  t*.10));
+  float nf = fbm(wp  * 3.8               + vec2( t*.07, -t*.05));
+
+  // Layered powder density
+  float core  = smoothstep( .05, -.18, shape);
+  float wispy = smoothstep( .22 + nb*.15, -.03, shape);
+  float dust  = smoothstep( .30 + nf*.17,  .03, shape)
+              * step(.4, fract(nf * 5. + r * 8.5 + t * .13));
+
+  float pw = max(core, max(wispy * .72, dust * .50));
+  pw *= nb * .28 + .72;
+  pw  = clamp(pw, 0., 1.);
+
+  // Blue palette — deep indigo to bright cornflower/periwinkle
+  float cg  = clamp((uv.y + .35) * .9 + nb * .2, 0., 1.);
+  vec3  col = mix(vec3(.06, .14, .68),   // deep indigo at base
+                  vec3(.42, .62, .97),    // bright cornflower at top
+                  cg);
+  col = mix(col, vec3(.18, .36, .88), nf * .3);
+
+  // Pale ice-blue highlight at outer petal ruffles
+  col = mix(col, vec3(.78, .88, 1.00),
+            smoothstep(.18, 0., abs(peony)) * .32);
+
+  // Inner petal layers — concentric rings of slightly shifted blue
+  // suggesting the many overlapping layers of a full peony
+  float ring1 = smoothstep(.03, -.01, abs(length(wp) - .18));
+  float ring2 = smoothstep(.03, -.01, abs(length(wp) - .10));
+  col = mix(col, vec3(.28, .50, .95), ring1 * core * .35);
+  col = mix(col, vec3(.55, .72, 1.00), ring2 * core * .30);
+
+  // Bright near-white centre
+  col = mix(col, vec3(.88, .93, 1.00),
+            smoothstep(.07, -.02, length(wp)) * .55);
+
+  // Green stem and leaf colour
+  float stalkMask = smoothstep(.03, -.02, stalk);
+  col = mix(col, vec3(.12, .60, .04), stalkMask * .90);
+
+  vec3 bg   = vec3(.290, .486, 1.);
+  float glow = smoothstep(.5, 0., shape + .05) * .10;
+
+  O = vec4(clamp(mix(bg, col, pw) + col * glow * (1. - pw), 0., 1.), 1.);
+}`;
+
+/* ── Compile & link ───────────────────────────────────────────── */
+function mkShader(type, src) {
+  const s = gl.createShader(type);
+  gl.shaderSource(s, src); gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS))
+    console.error(gl.getShaderInfoLog(s));
+  return s;
+}
+const prog = gl.createProgram();
+gl.attachShader(prog, mkShader(gl.VERTEX_SHADER,   VS));
+gl.attachShader(prog, mkShader(gl.FRAGMENT_SHADER, FS));
+gl.linkProgram(prog);
+if (!gl.getProgramParameter(prog, gl.LINK_STATUS))
+  console.error(gl.getProgramInfoLog(prog));
+gl.useProgram(prog);
+
+/* ── Fullscreen triangle ──────────────────────────────────────── */
+const buf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+const al = gl.getAttribLocation(prog, 'p');
+gl.enableVertexAttribArray(al);
+gl.vertexAttribPointer(al, 2, gl.FLOAT, false, 0, 0);
+
+const [uR, uT, uM] = ['R','T','M'].map(n => gl.getUniformLocation(prog, n));
+
+/* ── Render loop ──────────────────────────────────────────────── */
+(function frame(ms) {
+  gl.uniform2f(uR, c.width, c.height);
+  gl.uniform1f(uT, ms * .001);
+  gl.uniform2f(uM, mx, c.height - my);
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+  requestAnimationFrame(frame);
+})(0);
+</script>
+</body>
+</html>
