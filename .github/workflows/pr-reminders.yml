@@ -1,0 +1,75 @@
+name: PR Follow-up Reminders
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const now = new Date();
+            const ONE_WEEK_MS  = 7  * 24 * 60 * 60 * 1000;
+            const ONE_MONTH_MS = 30 * 24 * 60 * 60 * 1000;
+
+            const WEEK_MARKER  = '<!-- reminder: 1-week -->';
+            const MONTH_MARKER = '<!-- reminder: 1-month -->';
+
+            const prs = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              state: 'open',
+              per_page: 100
+            });
+
+            for (const pr of prs.data) {
+              const age = now - new Date(pr.created_at);
+
+              const comments = await github.rest.issues.listComments({
+                owner:        context.repo.owner,
+                repo:         context.repo.repo,
+                issue_number: pr.number,
+                per_page:     100
+              });
+
+              const bodies        = comments.data.map(c => c.body);
+              const hasWeekReminder  = bodies.some(b => b.includes(WEEK_MARKER));
+              const hasMonthReminder = bodies.some(b => b.includes(MONTH_MARKER));
+
+              if (age >= ONE_MONTH_MS && !hasMonthReminder) {
+                await github.rest.issues.createComment({
+                  owner:        context.repo.owner,
+                  repo:         context.repo.repo,
+                  issue_number: pr.number,
+                  body: `${MONTH_MARKER}
+👋 Heyyyy! It's been a whole month since you opened this PR — we don't want to lose you!
+
+Just a kind reminder that your component won't be accepted until you submit the form on the gallery website:
+👉 https://retoolcustomcomponents.netlify.app/
+
+That's the last step — it's where you add your cover image, description, and tags so it shows up on the gallery card. Once submitted, our team reviews it and gets it live.
+
+We're rooting for you — don't let it slip away! 🚀`
+                });
+              } else if (age >= ONE_WEEK_MS && !hasWeekReminder) {
+                await github.rest.issues.createComment({
+                  owner:        context.repo.owner,
+                  repo:         context.repo.repo,
+                  issue_number: pr.number,
+                  body: `${WEEK_MARKER}
+⏰ Hey! Just a reminder — your PR has been open for a week but your component hasn't been approved yet.
+
+That's because it also needs to be submitted on the gallery website:
+👉 https://retoolcustomcomponents.netlify.app/
+
+This is the last step! It only takes a few minutes — once submitted, our team will review it and get it live in the gallery. 🎉`
+                });
+              }
+            }
