@@ -15,10 +15,6 @@ import {
 
 import * as Charts from "react-chartjs-2";
 
-/* =========================
-   REGISTER
-========================= */
-
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -30,16 +26,10 @@ ChartJS.register(
     Legend
 );
 
-/* ========================= */
-
 const BarChart = Charts.Bar;
 const LineChart = Charts.Line;
 const PieChart = Charts.Pie;
 const DoughnutChart = Charts.Doughnut;
-
-/* =========================
-   COLORS (THEME SAFE)
-========================= */
 
 const COLORS = [
     "#3b82f6", "#10b981", "#f59e0b", "#ef4444",
@@ -54,11 +44,6 @@ const TYPE_LABELS: Record<string, string> = {
     pie: "Pie",
     donut: "Donut"
 };
-
-
-/* =========================
-   HELPERS
-========================= */
 
 const isDateKey = (k: string = "") =>
     ["date", "day", "month", "year", "time"].includes(k.toLowerCase());
@@ -76,10 +61,6 @@ const normalizeObject = (o: any = {}) =>
         name: k,
         value: Number(v) || 0
     }));
-
-/* =========================
-   DATA ANALYZER
-========================= */
 
 function analyzeData(data: any) {
 
@@ -120,10 +101,6 @@ function analyzeData(data: any) {
     return { auto: "bar", allowed: ["bar"] };
 }
 
-/* =========================
-   OPTIONS
-========================= */
-
 const OPTIONS: any = {
     responsive: true,
     maintainAspectRatio: false,
@@ -151,10 +128,6 @@ const OPTIONS: any = {
     }
 };
 
-/* =========================
-   COMPONENT
-========================= */
-
 export const SmartAutoChart: FC = () => {
 
     const [data] = Retool.useStateArray({ name: "chartData", initialValue: [] });
@@ -170,10 +143,6 @@ export const SmartAutoChart: FC = () => {
         () => (!Array.isArray(data) ? normalizeObject(data) : data),
         [data]
     );
-
-    /* =========================
-       BUILD DATASETS (STYLED)
-    ========================= */
 
     const chartData = useMemo(() => {
 
@@ -222,8 +191,6 @@ export const SmartAutoChart: FC = () => {
 
     if (!chartData) return <div>No data</div>;
 
-    /* ========================= */
-
     let ChartComponent: any = null;
 
     if (type.includes("bar")) ChartComponent = BarChart;
@@ -232,10 +199,6 @@ export const SmartAutoChart: FC = () => {
     if (type === "donut") ChartComponent = DoughnutChart;
 
     if (!ChartComponent) return <div>Unsupported</div>;
-
-    /* =========================
-       RENDER
-    ========================= */
 
     return (
         <div style={{
