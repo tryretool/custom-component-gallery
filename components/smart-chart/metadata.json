@@ -1,0 +1,7 @@
+{
+  "id": "smart-chart",
+  "title": "Smart Chart",
+  "author": "@widlestudiollp",
+  "shortDescription": "An intelligent auto-chart component that analyzes input data and renders the most suitable visualization (bar, line, pie, donut, etc.) with optional manual override.",
+  "tags": ["Charts", "Data Visualization", "Chart.js", "Auto Detection", "Analytics"]
+}
