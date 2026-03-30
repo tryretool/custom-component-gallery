@@ -1,0 +1,7 @@
+{
+  "id": "image-zoom",
+  "title": "Image Zoom",
+  "author": "@MiguelOrtiz",
+  "shortDescription": "A component that adds image zoom and magnification capabilities to your Retool applications.",
+  "tags": ["Images", "Zoom"]
+}
