@@ -20,7 +20,7 @@ Each component lives in its own folder under `components/`. Open the folder you 
 
 To add your component to the gallery:
 
-1. Visit [[https://angelikretool.github.io/gallery-frontend/](https://angelikretool.github.io/gallery-frontend/) and click **Submit Component**
+1. Visit [https://angelikretool.github.io/gallery-frontend/](https://angelikretool.github.io/gallery-frontend/) and click **Submit Component**
 2. Follow the instructions in [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 You will need a finished component built with the [custom-component-collection-template](https://github.com/tryretool/custom-component-collection-template). If you have not built one yet, start there.

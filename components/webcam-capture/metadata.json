@@ -1,0 +1,7 @@
+{
+  "id": "webcam-capture",
+  "title": "Webcam Capture",
+  "author": "@keanankoppenhaver",
+  "shortDescription": "A webcam capture component with real-time visual filters, mirror toggle, and image capture that exposes base64-encoded photos to your Retool app.",
+  "tags": ["UI Components", "Forms"]
+}
