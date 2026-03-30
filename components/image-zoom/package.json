@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
-    "@tryretool/custom-component-support": "^1.0.0",
+    "@tryretool/custom-component-support": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
