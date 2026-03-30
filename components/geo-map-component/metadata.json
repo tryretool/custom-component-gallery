@@ -1,0 +1,7 @@
+{
+  "id": "geo-map-component",
+  "title": "Geo Map",
+  "author": "@widlestudiollp",
+  "shortDescription": "An interactive world map component that visualizes country-level data using dynamic color scaling, smart country detection, and click-based interactions.",
+  "tags": ["Maps", "Geospatial", "Data Visualization", "Leaflet", "Analytics"]
+}

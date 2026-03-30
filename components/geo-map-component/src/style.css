@@ -1,0 +1,76 @@
+/* ===========================
+   MAP CONTAINER
+=========================== */
+.map-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-color: #CFD3D4;
+}
+
+/* ===========================
+   COLOR BAR (RIGHT SIDE)
+=========================== */
+.colorbar-container {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ffffff;
+  padding: 10px 8px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 999;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.colorbar {
+  width: 12px;
+  height: 150px;
+  border-radius: 6px;
+  background: linear-gradient(to bottom, #1d2e6b, #7297ef, #f7c873, #ffaa6e);
+}
+
+.colorbar-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 150px;
+  font-size: 10px;
+  color: #555;
+}
+
+/* ===========================
+   TOOLTIP CLEAN (MODERN)
+=========================== */
+.leaflet-tooltip {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.leaflet-tooltip.custom-modern-tooltip {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* ===========================
+   MAP INTERACTION CLEANUP
+=========================== */
+.leaflet-interactive:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
