@@ -1,35 +1,42 @@
 {
-  "name": "image-zoom",
-  "version": "1.0.0",
-  "description": "A Retool custom component for image zoom and magnification",
-  "main": "index.tsx",
-  "scripts": {
-    "dev": "retool-ccl dev",
-    "build": "retool-ccl build",
-    "lint": "eslint . --ext .ts,.tsx"
-  },
+  "name": "my-react-app",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "@tryretool/custom-component-support": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+"scripts": {
+    "dev": "npx retool-ccl dev",
+    "deploy": "npx retool-ccl deploy",
+    "test": "vitest"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "@typescript-eslint/eslint-plugin": "^7.0.0",
-    "@typescript-eslint/parser": "^7.0.0",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
     "eslint": "^8.57.0",
-    "typescript": "^5.4.0"
-  },
-  "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "retoolCustomComponentLibraryConfig": {
-    "name": "imageZoom",
-    "label": "Image ZOom",
-    "description": "Image Zoom",
-    "entryPoint": "src/index.tsx",
-    "outputPath": "dist"
+    "eslint-plugin-react": "^7.34.1",
+    "postcss-modules": "^6.0.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.4.0",
+    "vitest": "^4.0.17"
   }
 }
