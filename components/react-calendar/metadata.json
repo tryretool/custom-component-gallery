@@ -1,0 +1,16 @@
+{
+    "id": "react-calendar-whiteboard",
+    "title": "React Whiteboard Calendar",
+    "author": "@widlestudiollp",
+    "shortDescription": "A high-performance whiteboard-style calendar for crew scheduling with multi-day events, lane management, and week/month views. Designed for clarity, scalability, and seamless interaction inside Retool.",
+    "tags": [
+        "Calendar",
+        "Scheduling",
+        "Whiteboard",
+        "Timeline",
+        "Crew Management",
+        "Multi-day Events",
+        "Retool",
+        "Planning"
+    ]
+}
