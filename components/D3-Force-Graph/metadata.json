@@ -1,0 +1,16 @@
+{
+  "id": "d3-force-graph",
+  "title": "D3 Force Graph",
+  "author": "@widlestudiollp",
+  "shortDescription": "An interactive D3 force-directed graph with zoom, themes, node grouping, and detailed insights panel.",
+  "tags": [
+    "D3",
+    "Graph",
+    "Visualization",
+    "Force Layout",
+    "Analytics",
+    "Interactive",
+    "Network",
+    "React"
+  ]
+}
