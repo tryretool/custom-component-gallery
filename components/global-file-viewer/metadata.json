@@ -1,0 +1,7 @@
+{
+  "id": "smart-file-viewer",
+  "title": "Smart File Viewer",
+  "author": "@widlestudiollp",
+  "shortDescription": "An intelligent auto-detect file viewer component that supports multiple file formats (PDF, Word, Excel, CSV, JSON, media) from uploads, URLs, and Base64, rendering them with the appropriate viewer automatically.",
+  "tags": ["File Viewer", "Document Viewer", "Auto Detection", "PDF", "Media", "Data Preview"]
+}
