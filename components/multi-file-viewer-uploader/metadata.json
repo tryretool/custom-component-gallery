@@ -1,0 +1,14 @@
+{
+  "id": "multi-file-viewer",
+  "title": "Multi File Viewer",
+  "author": "@widlestudiollp",
+  "shortDescription": "A responsive Retool custom component for uploading and previewing images, PDFs, spreadsheets, CSV, text, JSON, audio, video, and office files.",
+  "tags": [
+    "File Upload",
+    "File Preview",
+    "Retool",
+    "PDF",
+    "Spreadsheets",
+    "Media Viewer"
+  ]
+}

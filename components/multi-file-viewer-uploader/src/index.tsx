@@ -1,0 +1,1 @@
+export { default as MultiFileViewer } from "./components/index";
