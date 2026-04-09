@@ -1,0 +1,16 @@
+{
+  "id": "dynamic-kanban-board",
+  "title": "Dynamic Kanban Board",
+  "author": "@widlestudiollp",
+  "shortDescription": "A flexible, schema-agnostic Kanban board that dynamically parses JSON data, auto-detects fields, and enables drag-and-drop task management with real-time updates.",
+  "tags": [
+    "Kanban",
+    "Task Management",
+    "Drag and Drop",
+    "Dynamic UI",
+    "JSON Parsing",
+    "Retool",
+    "Workflow",
+    "Dashboard"
+  ]
+}
