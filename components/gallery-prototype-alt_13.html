@@ -1,0 +1,2704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retool Custom Component Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #3B7FF5;
+            min-height: 100vh;
+            padding: 32px 24px;
+            color: #E5E7EB;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #0E0E14;
+            border-radius: 24px;
+            padding: 40px;
+            border: 3px solid #2DD4BF;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .header-nav-left {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-start;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            font-size: 3.2em;
+            margin-bottom: 10px;
+            font-weight: 900;
+            color: #F5A623;
+            letter-spacing: -0.01em;
+            font-family: 'Nunito', sans-serif;
+            text-shadow: 0 2px 0 rgba(0,0,0,0.35);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #CBD5E1;
+        }
+
+        .header-sub {
+            font-size: 0.9em;
+            color: #94A3B8;
+            margin-top: 6px;
+        }
+
+        .search-box {
+            width: 250px;
+            flex-shrink: 0;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 16px;
+            border: 1px solid #2DD4BF;
+            border-radius: 10px;
+            font-size: 0.9em;
+            background: #1A1A22;
+            color: #FFFFFF;
+            font-family: inherit;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #F5A623;
+            box-shadow: 0 0 0 3px rgba(245,166,35,0.2);
+        }
+
+        .search-box input::placeholder {
+            color: #6B7280;
+        }
+
+        .filters {
+            background: transparent;
+            padding: 0 0 24px 0;
+            margin-bottom: 24px;
+            border: none;
+            border-bottom: 1px solid rgba(45,212,191,0.3);
+        }
+
+        .tag-filter {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag-button {
+            padding: 8px 18px;
+            border: 1.5px solid rgba(45,212,191,0.45);
+            background: transparent;
+            color: #94A3B8;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 700;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .tag-button:hover {
+            background: rgba(45,212,191,0.12);
+            color: #2DD4BF;
+            border-color: #2DD4BF;
+        }
+
+        .tag-button.active {
+            background: #F5A623;
+            color: #0E0E14;
+            border-color: #F5A623;
+            box-shadow: 0 2px 8px rgba(245,166,35,0.35);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 24px;
+        }
+
+        .component-card {
+            background: #1A1A22;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 2px solid #2DD4BF;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .component-card:hover {
+            transform: translateY(-5px);
+            border-color: #F5A623;
+            box-shadow: 0 8px 32px rgba(245,166,35,0.2);
+        }
+
+        .card-media {
+            width: 100%;
+            height: 240px;
+            background: #0E0E14;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 2px solid #2DD4BF;
+        }
+
+        .card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+            gap: 12px;
+        }
+
+        .card-header > div {
+            min-width: 0;
+        }
+
+        .card-title {
+            font-size: 1.35em;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+            overflow-wrap: break-word;
+        }
+
+        .card-author {
+            font-size: 0.9em;
+            color: #CBD5E1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .author-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #F5A623;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .github-link {
+            padding: 7px 13px;
+            background: rgba(45,212,191,0.1);
+            color: #2DD4BF;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s ease, color 0.2s ease;
+            white-space: nowrap;
+            border: 1px solid rgba(45,212,191,0.4);
+            flex-shrink: 0;
+            align-self: flex-start;
+        }
+
+        .github-link:hover {
+            background: rgba(45,212,191,0.2);
+            color: #FFFFFF;
+            border-color: #2DD4BF;
+        }
+
+        .card-description {
+            color: #FFFFFF;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            flex: 1;
+            font-size: 0.95em;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+
+        .tag {
+            padding: 5px 11px;
+            background: rgba(45,212,191,0.1);
+            color: #2DD4BF;
+            border-radius: 20px;
+            font-size: 0.82em;
+            font-weight: 700;
+            border: 1px solid rgba(45,212,191,0.35);
+        }
+
+        @media (max-width: 768px) {
+            .header-nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .header-nav-left {
+                align-items: stretch;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .card-header {
+                flex-direction: column;
+            }
+        }
+
+        /* ===== Champion Styles ===== */
+
+        .champion-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 2px 9px;
+            background: rgba(45,212,191,0.12);
+            border: 1px solid rgba(45,212,191,0.5);
+            border-radius: 10px;
+            font-size: 0.72em;
+            font-weight: 800;
+            color: #2DD4BF;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+
+        .tag-button.champion-filter {
+            border-color: rgba(245, 158, 11, 0.45);
+            color: #F59E0B;
+        }
+
+        .tag-button.champion-filter:hover {
+            background: rgba(245, 158, 11, 0.12);
+            color: #F59E0B;
+            border-color: #F59E0B;
+        }
+
+        .tag-button.champion-filter.active {
+            background: #F59E0B;
+            color: #1A1D1F;
+            border-color: #F59E0B;
+        }
+
+        /* ===== Voting Styles ===== */
+
+        .rank-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(26, 29, 31, 0.88);
+            border: 1px solid #374151;
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 0.8em;
+            font-weight: 700;
+            color: #9CA3AF;
+            backdrop-filter: blur(4px);
+            z-index: 1;
+            letter-spacing: 0.02em;
+        }
+
+        .rank-badge.gold   { border-color: #F59E0B; color: #F59E0B; }
+        .rank-badge.silver { border-color: #9CA3AF; color: #C0C0C0; }
+        .rank-badge.bronze { border-color: #B87333; color: #CD853F; }
+
+        .star-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(26, 29, 31, 0.88);
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+            z-index: 1;
+            font-family: inherit;
+            min-width: 46px;
+        }
+
+        .star-btn:hover:not(:disabled) {
+            border-color: #F59E0B;
+            background: rgba(245, 158, 11, 0.15);
+        }
+
+        .star-btn:hover:not(:disabled) .star-icon {
+            color: #F59E0B;
+        }
+
+        .star-btn:hover:not(:disabled) .star-count {
+            color: #F59E0B;
+        }
+
+        .star-btn.voted {
+            border-color: #F59E0B;
+            background: rgba(245, 158, 11, 0.15);
+        }
+
+        .star-btn.voted .star-icon {
+            color: #F59E0B;
+        }
+
+        .star-btn.voted .star-count {
+            color: #F59E0B;
+        }
+
+        .star-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .star-btn:disabled:not(.voted) {
+            opacity: 0.4;
+        }
+
+        .star-icon {
+            font-size: 1.35em;
+            line-height: 1;
+            color: #6B7280;
+            transition: color 0.2s ease;
+        }
+
+        .star-count {
+            font-size: 0.75em;
+            font-weight: 700;
+            color: #9CA3AF;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+
+        /* ===== Toast ===== */
+
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: #141418;
+            border: 2px solid #2DD4BF;
+            color: #2DD4BF;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 0.925em;
+            font-weight: 500;
+            z-index: 3000;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* ===== Empty state ===== */
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #6B7280;
+            padding: 60px 20px;
+            font-size: 1em;
+        }
+
+        /* ===== Modal Styles ===== */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: #141418;
+            border-radius: 20px;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            border: 2px solid #2DD4BF;
+            animation: slideUp 0.3s ease;
+            position: relative;
+        }
+
+        .modal-scroll-inner {
+            overflow-y: auto;
+            max-height: 90vh;
+            scrollbar-width: thin;
+            scrollbar-color: #2DD4BF transparent;
+        }
+
+        .modal-scroll-inner::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-scroll-inner::-webkit-scrollbar-track {
+            background: transparent;
+            margin: 20px 0;
+        }
+
+        .modal-scroll-inner::-webkit-scrollbar-thumb {
+            background: #2DD4BF;
+            border-radius: 10px;
+        }
+
+        .modal-scroll-inner::-webkit-scrollbar-thumb:hover {
+            background: #F5A623;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            position: sticky;
+            top: 0;
+            background: #141418;
+            border-bottom: 2px solid #2DD4BF;
+            padding: 24px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 10;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: #9CA3AF;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #374151;
+            color: #FFFFFF;
+        }
+
+        .modal-title-section {
+            flex: 1;
+        }
+
+        .modal-title {
+            font-size: 2em;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .modal-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .modal-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #F5A623;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .modal-author-name {
+            font-size: 1em;
+            color: #E5E7EB;
+            font-weight: 500;
+        }
+
+        .modal-body {
+            padding: 32px;
+        }
+
+        .modal-preview {
+            width: 100%;
+            height: 400px;
+            background: #1A1D1F;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 32px;
+            border: 1px solid #374151;
+        }
+
+        .modal-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-section {
+            margin-bottom: 32px;
+        }
+
+        .modal-section h3 {
+            font-size: 1.2em;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .modal-section p {
+            color: #D1D5DB;
+            line-height: 1.7;
+            font-size: 1em;
+        }
+
+        .modal-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .modal-tag {
+            padding: 6px 14px;
+            background: rgba(45,212,191,0.1);
+            color: #2DD4BF;
+            border-radius: 20px;
+            font-size: 0.88em;
+            font-weight: 700;
+            border: 1px solid rgba(45,212,191,0.35);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            padding: 24px 32px;
+            border-top: 2px solid #2DD4BF;
+            position: sticky;
+            bottom: 0;
+            background: #141418;
+        }
+
+        .modal-btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .modal-btn.primary {
+            background: #F5A623;
+            color: #0E0E14;
+            border: none;
+            font-weight: 800;
+            font-family: inherit;
+        }
+
+        .modal-btn.primary:hover {
+            background: #E09218;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(245,166,35,0.4);
+        }
+
+        .modal-btn.secondary {
+            background: transparent;
+            color: #2DD4BF;
+            border: 1.5px solid #2DD4BF;
+            font-weight: 700;
+            font-family: inherit;
+        }
+
+        .modal-btn.secondary:hover {
+            background: rgba(45,212,191,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                max-height: 95vh;
+            }
+
+            .modal-header {
+                padding: 20px;
+            }
+
+            .modal-body {
+                padding: 24px 20px;
+            }
+
+            .modal-actions {
+                padding: 20px;
+                flex-direction: column;
+            }
+        }
+        /* ===== Submit Button ===== */
+
+        .submit-component-btn {
+            padding: 10px 20px;
+            background: #F5A623;
+            color: #0E0E14;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .submit-component-btn:hover {
+            background: #E09218;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(245,166,35,0.4);
+        }
+
+        .edit-component-btn {
+            padding: 10px 20px;
+            background: transparent;
+            color: #2DD4BF;
+            border: 1.5px solid #2DD4BF;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: 800;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .edit-component-btn:hover {
+            background: rgba(45,212,191,0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(45,212,191,0.25);
+        }
+
+        /* ===== Feedback Banner (shown in edit mode when reviewer left notes) ===== */
+        .prereq-banner {
+            background: rgba(45, 212, 191, 0.07);
+            border: 1.5px solid #2DD4BF;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 28px;
+        }
+        .prereq-banner-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            color: #2DD4BF;
+            font-size: 0.92em;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 10px;
+        }
+        .prereq-banner-body {
+            color: #CBD5E1;
+            font-size: 0.93em;
+            line-height: 1.7;
+        }
+        .prereq-banner-body a {
+            color: #2DD4BF;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .prereq-banner-body a:hover { color: #F5A623; }
+        .feedback-banner {
+            background: rgba(245, 166, 35, 0.08);
+            border: 1.5px solid #F5A623;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+        .feedback-banner-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            color: #F5A623;
+            font-size: 0.92em;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 10px;
+        }
+        .feedback-banner-body {
+            color: #CBD5E1;
+            font-size: 0.92em;
+            line-height: 1.65;
+            white-space: pre-wrap;
+        }
+
+        /* ===== Submission Form Modal ===== */
+
+        .submit-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(8px);
+            z-index: 1100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .submit-overlay.active {
+            display: flex;
+        }
+
+        .submit-modal {
+            background: #141418;
+            border-radius: 20px;
+            max-width: 940px;
+            width: 100%;
+            max-height: 92vh;
+            overflow-y: auto;
+            border: 2px solid #2DD4BF;
+            animation: slideUp 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            scrollbar-width: thin;
+            scrollbar-color: #2DD4BF transparent;
+        }
+
+        .submit-modal::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .submit-modal::-webkit-scrollbar-track {
+            background: transparent;
+            margin: 20px 0;
+        }
+
+        .submit-modal::-webkit-scrollbar-thumb {
+            background: #2DD4BF;
+            border-radius: 10px;
+        }
+
+        .submit-modal::-webkit-scrollbar-thumb:hover {
+            background: #F5A623;
+        }
+
+        .submit-modal-header {
+            position: sticky;
+            top: 0;
+            background: #141418;
+            border-bottom: 2px solid #2DD4BF;
+            padding: 22px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .submit-modal-header h2 {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #FFFFFF;
+            letter-spacing: -0.01em;
+        }
+
+        .submit-modal-body {
+            padding: 28px 32px;
+            flex: 1;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #E5E7EB;
+            margin-bottom: 7px;
+        }
+
+        .form-label .req { color: #EF4444; margin-left: 2px; }
+        .form-label .opt { color: #6B7280; font-weight: 400; font-size: 0.9em; margin-left: 4px; }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 10px 14px;
+            background: #1A1D1F;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            color: #FFFFFF;
+            font-size: 0.925em;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus { outline: none; border-color: #2DD4BF; box-shadow: 0 0 0 3px rgba(45,212,191,0.15); }
+        .form-input::placeholder,
+        .form-textarea::placeholder { color: #4B5563; }
+        .form-input.field-error,
+        .form-textarea.field-error { border-color: #EF4444; }
+
+        .form-textarea { resize: vertical; min-height: 96px; }
+
+        .input-prefix-wrap {
+            display: flex;
+            align-items: stretch;
+            background: #1A1D1F;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-prefix-wrap:focus-within { border-color: #F5A623; }
+        .input-prefix-wrap.field-error { border-color: #EF4444; }
+
+        .input-prefix {
+            padding: 10px 12px;
+            color: #6B7280;
+            font-size: 0.925em;
+            background: #141418;
+            border-right: 1px solid #374151;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-prefix-wrap input {
+            flex: 1;
+            padding: 10px 14px;
+            background: transparent;
+            border: none;
+            color: #FFFFFF;
+            font-size: 0.925em;
+            font-family: inherit;
+        }
+
+        .input-prefix-wrap input:focus { outline: none; }
+        .input-prefix-wrap input::placeholder { color: #4B5563; }
+
+        /* File upload */
+        .file-drop-zone {
+            position: relative;
+            border: 2px dashed #374151;
+            border-radius: 10px;
+            padding: 32px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .file-drop-zone:hover,
+        .file-drop-zone.drag-over { border-color: #F5A623; background: rgba(107, 186, 255, 0.05); }
+        .file-drop-zone.field-error { border-color: #EF4444; }
+        .file-drop-zone.has-file { border-style: solid; border-color: #2EC98A; background: rgba(46, 201, 138, 0.05); }
+
+        .file-drop-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .file-drop-icon { font-size: 2em; color: #6B7280; margin-bottom: 8px; }
+        .file-drop-text { color: #9CA3AF; font-size: 0.875em; line-height: 1.5; }
+        .file-drop-text strong { color: #F5A623; }
+        .file-drop-hint { font-size: 0.78em; color: #6B7280; margin-top: 4px; }
+
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .file-thumb {
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid #374151;
+            aspect-ratio: 4 / 3;
+            background: #1A1D1F;
+        }
+
+        .file-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .file-thumb-remove {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 22px;
+            height: 22px;
+            background: rgba(0, 0, 0, 0.72);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            padding: 0;
+            font-family: inherit;
+            transition: background 0.15s ease;
+        }
+
+        .file-thumb-remove:hover { background: #EF4444; }
+
+        .file-thumb-cover {
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            background: rgba(107, 186, 255, 0.92);
+            color: #1A1D1F;
+            font-size: 0.6em;
+            font-weight: 700;
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        /* Tag picker */
+        .tag-picker {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag-pick-btn {
+            padding: 5px 14px;
+            border: 1px solid #374151;
+            background: transparent;
+            color: #9CA3AF;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 500;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .tag-pick-btn:hover { border-color: #2DD4BF; color: #2DD4BF; }
+        .tag-pick-btn.selected { background: #2DD4BF; color: #0E0E14; border-color: #2DD4BF; font-weight: 700; }
+        .tag-picker.field-error .tag-pick-btn:not(.selected) { border-color: rgba(239, 68, 68, 0.5); }
+
+        .field-error-msg {
+            color: #EF4444;
+            font-size: 0.8em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .field-error-msg.visible { display: block; }
+
+        .char-counter {
+            font-size: 0.78em;
+            color: #6B7280;
+            text-align: right;
+            margin-top: 4px;
+        }
+        .char-counter.near-limit { color: #F59E0B; }
+        .char-counter.at-limit   { color: #EF4444; font-weight: 600; }
+
+        /* ===== Block Editor ===== */
+        .wed-wrap {
+            border: 1.5px solid #2A2D36;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #0D0F12;
+            transition: border-color 0.2s;
+        }
+        .wed-wrap:focus-within { border-color: #2DD4BF; }
+        .wed-wrap.field-error  { border-color: #EF4444; }
+        .wed-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            padding: 7px 10px;
+            background: #111315;
+            border-bottom: 1px solid #1A1D24;
+        }
+        .wed-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: #6B7280;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.83em;
+            font-family: inherit;
+            line-height: 1;
+            transition: all 0.15s;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .wed-btn:hover { background: #1C1F26; border-color: #2A2D36; color: #D1D5DB; }
+        .wed-btn.wed-active { background: rgba(45,212,191,0.12); border-color: rgba(45,212,191,0.3); color: #2DD4BF; }
+        .wed-sep { width: 1px; height: 16px; background: #1C1F26; margin: 0 4px; flex-shrink: 0; }
+        .wed-area { padding: 10px 8px; min-height: 140px; cursor: text; }
+        /* Blocks */
+        .wed-block {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            border-radius: 6px;
+            margin: 1px 0;
+            transition: box-shadow 0.1s;
+        }
+        .wed-block:hover > .wed-drag { opacity: 1; }
+        .wed-block.wed-dragging { opacity: 0.25; }
+        .wed-block.wed-over-top { box-shadow: 0 -2px 0 #F5A623; }
+        .wed-block.wed-over-bot { box-shadow: 0  2px 0 #F5A623; }
+        .wed-drag {
+            flex-shrink: 0;
+            width: 20px;
+            color: #3A3F4B;
+            font-size: 11px;
+            cursor: grab;
+            opacity: 0;
+            transition: opacity 0.15s;
+            user-select: none;
+            padding-top: 6px;
+            letter-spacing: -2px;
+            line-height: 1;
+            text-align: center;
+        }
+        .wed-drag:active { cursor: grabbing; }
+        .wed-block-inner { flex: 1; min-width: 0; }
+        /* Text block */
+        .wed-text {
+            outline: none;
+            color: #F1F5F9;
+            font-size: 0.9em;
+            line-height: 1.72;
+            word-break: break-word;
+            padding: 2px 6px;
+            min-height: 1.72em;
+            caret-color: #2DD4BF;
+            font-family: inherit;
+        }
+        .wed-text:empty::before {
+            content: attr(data-placeholder);
+            color: #3D4251;
+            pointer-events: none;
+            font-style: italic;
+        }
+        /* Code block */
+        .wed-code-block {
+            margin: 6px 0;
+            background: #090B0D;
+            border: 1px solid #1C1F26;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .wed-code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 12px;
+            background: #0D0F12;
+            border-bottom: 1px solid #1C1F26;
+        }
+        .wed-code-lang { font-size: 0.7em; color: #3D4251; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'SF Mono','Fira Code',monospace; }
+        .wed-code-rm {
+            background: transparent;
+            border: none;
+            color: #3D4251;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 0;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: color 0.15s, background 0.15s;
+        }
+        .wed-code-rm:hover { color: #EF4444; background: rgba(239,68,68,0.1); }
+        .wed-code-input {
+            display: block;
+            width: 100%;
+            outline: none;
+            padding: 12px 16px;
+            color: #F5A623;
+            background: transparent;
+            font-family: 'SF Mono','Fira Code','Consolas',monospace;
+            font-size: 0.88em;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-all;
+            caret-color: #2DD4BF;
+            min-height: 3em;
+        }
+        .wed-code-input:empty::before { content: '// paste your code here…'; color: #2A2D36; pointer-events: none; }
+        /* Image block */
+        .wed-img-block {
+            margin: 6px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #1C1F26;
+            background: #090B0D;
+            display: block;
+        }
+        .wed-img-block img { display: block; max-width: 100%; border-radius: 7px; }
+        .wed-img-rm {
+            position: absolute;
+            top: 12px;
+            right: 6px;
+            background: rgba(0,0,0,0.75);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #9CA3AF;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.15s, color 0.15s;
+            padding: 0;
+        }
+        .wed-block:hover .wed-img-rm { opacity: 1; }
+        .wed-img-rm:hover { color: #EF4444; }
+
+        /* Footer */
+        .submit-modal-footer {
+            padding: 18px 32px;
+            border-top: 2px solid #2DD4BF;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-end;
+            position: sticky;
+            bottom: 0;
+            background: #141418;
+        }
+
+        /* Success state */
+        .submit-success {
+            display: none;
+            text-align: center;
+            padding: 56px 32px;
+        }
+
+        .submit-success.visible { display: block; }
+        .submit-success-icon { font-size: 3.5em; margin-bottom: 16px; }
+        .submit-success h3 { font-size: 1.5em; font-weight: 600; color: #FFFFFF; margin-bottom: 10px; }
+        .submit-success p { color: #9CA3AF; line-height: 1.7; max-width: 380px; margin: 0 auto; }
+
+        .form-sublabel {
+            font-size: 0.8em;
+            font-weight: 600;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin: 16px 0 8px;
+        }
+
+        .form-sublabel .req { color: #EF4444; margin-left: 2px; }
+
+        .desc-attachment {
+            margin-top: 4px;
+        }
+
+        /* Preview section */
+        .submit-preview-body {
+            padding: 24px 32px 8px;
+        }
+
+        .preview-intro {
+            text-align: center;
+            color: #9CA3AF;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .preview-card-wrap {
+            width: 100%;
+        }
+
+        .preview-note {
+            text-align: center;
+            color: #6B7280;
+            font-size: 0.82em;
+            margin-top: 18px;
+            padding-bottom: 4px;
+        }
+
+        [contenteditable] {
+            outline: none;
+            border-radius: 6px;
+            padding: 3px 7px;
+            margin: -3px -7px;
+            transition: background 0.15s, box-shadow 0.15s;
+            cursor: text;
+        }
+        [contenteditable]:hover {
+            background: rgba(45,212,191,0.07);
+        }
+        [contenteditable]:focus {
+            background: rgba(45,212,191,0.1);
+            box-shadow: 0 0 0 1.5px rgba(45,212,191,0.4);
+        }
+        .preview-edit-hint {
+            text-align: center;
+            color: #6B7280;
+            font-size: 0.82em;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .submit-component-btn { width: 100%; justify-content: center; }
+            .edit-component-btn   { width: 100%; justify-content: center; }
+            .form-row { grid-template-columns: 1fr; }
+            .submit-modal-body { padding: 24px 20px; }
+            .submit-preview-body { padding: 20px 20px 8px; }
+            .submit-modal-footer { padding: 16px 20px; flex-direction: column-reverse; }
+            .submit-modal-footer .modal-btn { width: 100%; justify-content: center; }
+        }
+    </style>
+
+    <script>
+        // ===== Component Data =====
+
+        const components = [
+            {
+                id: 'advanced-chat',
+                title: 'Advanced Chat Custom Component',
+                author: '@abusedmedia',
+                authorInitials: 'AM',
+                authorStyle: 'background: linear-gradient(135deg, #F5A623 0%, #8B7EFF 100%);',
+                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240'%3E%3Crect fill='%23f8f9fa' width='400' height='240'/%3E%3Crect x='20' y='20' width='360' height='180' rx='12' fill='white' stroke='%23e5e7eb' stroke-width='2'/%3E%3Crect x='40' y='40' width='60' height='60' rx='30' fill='%236BBAFF'/%3E%3Crect x='115' y='45' width='220' height='15' rx='8' fill='%23e5e7eb'/%3E%3Crect x='115' y='70' width='180' height='15' rx='8' fill='%23f3f4f6'/%3E%3Crect x='40' y='120' width='60' height='60' rx='30' fill='%238B7EFF'/%3E%3Crect x='115' y='125' width='220' height='15' rx='8' fill='%23e5e7eb'/%3E%3Crect x='115' y='150' width='160' height='15' rx='8' fill='%23f3f4f6'/%3E%3C/svg%3E",
+                shortDescription: 'Modern chat UI with interactive widgets, extensible widget framework, and advanced flow controls. Compatible with both Retool AI Query and Retool Agent Query.',
+                fullDescription: 'Modern chat UI with interactive widgets, extensible widget framework, pinned panels, and advanced flow controls. Compatible with both Retool AI Query and Retool Agent Query. Features include dual query support, error handling, and tool call permissions.',
+                repoLink: 'https://github.com/abusedmedia/retool-custom-component-advanced-chat',
+                tags: [
+                    { name: 'Chat', style: 'background: #F5A623; color: #FFFFFF; border-color: #F5A623;' },
+                    { name: 'AI' },
+                    { name: 'Agents' },
+                    { name: 'Workflows' }
+                ]
+            },
+            {
+                id: 'markdown-editor',
+                title: 'Custom Markdown Editor',
+                author: '@jamesg31',
+                authorInitials: 'JG',
+                authorStyle: 'background: linear-gradient(135deg, #8B7EFF 0%, #EC4899 100%);',
+                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240'%3E%3Crect fill='%23ffffff' width='400' height='240'/%3E%3Crect x='20' y='20' width='360' height='200' rx='8' fill='%23f8f9fa' stroke='%23e5e7eb' stroke-width='2'/%3E%3Ctext x='40' y='50' font-family='monospace' font-size='14' fill='%23374151'%3E%23 Heading%3C/text%3E%3Ctext x='40' y='80' font-family='monospace' font-size='12' fill='%236B7280'%3E**Bold text**%3C/text%3E%3Ctext x='40' y='110' font-family='monospace' font-size='12' fill='%236B7280'%3E*Italic text*%3C/text%3E%3Ctext x='40' y='140' font-family='monospace' font-size='12' fill='%236B7280'%3E- List item%3C/text%3E%3Crect x='220' y='40' width='140' height='160' rx='8' fill='white' stroke='%23e5e7eb' stroke-width='1'/%3E%3Ctext x='230' y='60' font-family='Arial' font-size='16' fill='%23111827' font-weight='bold'%3EHeading%3C/text%3E%3Ctext x='230' y='90' font-family='Arial' font-size='12' fill='%23374151' font-weight='bold'%3EBold text%3C/text%3E%3Ctext x='230' y='120' font-family='Arial' font-size='12' fill='%23374151' font-style='italic'%3EItalic text%3C/text%3E%3C/svg%3E",
+                shortDescription: 'Lightweight and performant markdown editor using UIW/react-md-editor. Supports full screen, light and dark mode, and is much more performant than CKEditor 5.',
+                fullDescription: 'Lightweight and performant markdown editor using UIW/react-md-editor. Supports full screen, light and dark mode, and is much more performant than CKEditor 5. Perfect for documentation and rich text editing within Retool applications.',
+                repoLink: 'https://github.com/jamesg31/retool-uiw-react-md-editor',
+                tags: [
+                    { name: 'Editors', style: 'background: #8B7EFF; color: #FFFFFF; border-color: #8B7EFF;' },
+                    { name: 'Markdown' },
+                    { name: 'React' }
+                ]
+            },
+            {
+                id: 'html-word-export',
+                title: 'HTML to Word Exporter',
+                author: '@MiguelOrtiz',
+                authorInitials: 'MO',
+                authorStyle: 'background: linear-gradient(135deg, #2563eb 0%, #10b981 100%);',
+                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240'%3E%3Crect fill='%23f8f9fa' width='400' height='240'/%3E%3Crect x='60' y='40' width='280' height='160' rx='8' fill='white' stroke='%232563eb' stroke-width='2'/%3E%3Ctext x='200' y='80' text-anchor='middle' font-family='Arial' font-size='48' fill='%232563eb' font-weight='bold'%3EW%3C/text%3E%3Crect x='80' y='110' width='240' height='8' rx='4' fill='%23e5e7eb'/%3E%3Crect x='80' y='130' width='200' height='8' rx='4' fill='%23e5e7eb'/%3E%3Crect x='80' y='150' width='220' height='8' rx='4' fill='%23e5e7eb'/%3E%3Cpath d='M 320 180 L 340 200 L 380 160' stroke='%2310b981' stroke-width='4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E",
+                shortDescription: 'Export HTML content (with images and tables) to Word documents (.doc/.docx) from Retool custom components. Perfect for report generation and document workflows.',
+                fullDescription: 'Export HTML content (with images and tables) to Word documents (.doc/.docx) from Retool custom components. Perfect for report generation and document workflows. Maintains formatting and styling when exporting to Word.',
+                repoLink: 'https://community.retool.com/t/exporting-html-with-images-tables-to-word-doc-docx-in-retool-custom-component/32611',
+                tags: [
+                    { name: 'Export', style: 'background: #2563eb; color: #FFFFFF; border-color: #2563eb;' }
+                ]
+            },
+            {
+                id: 'gantt-chart',
+                title: 'Interactive Gantt Chart',
+                author: '@retool-community',
+                authorInitials: 'RC',
+                authorStyle: 'background: linear-gradient(135deg, #F5A623 0%, #2EC98A 100%);',
+                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240'%3E%3Crect fill='%23f8f9fa' width='400' height='240'/%3E%3Crect x='20' y='40' width='100' height='20' rx='4' fill='%236BBAFF'/%3E%3Crect x='80' y='70' width='140' height='20' rx='4' fill='%238B7EFF'/%3E%3Crect x='40' y='100' width='180' height='20' rx='4' fill='%232EC98A'/%3E%3Crect x='120' y='130' width='160' height='20' rx='4' fill='%23F59E0B'/%3E%3Crect x='160' y='160' width='120' height='20' rx='4' fill='%23EF4444'/%3E%3Ctext x='20' y='30' font-family='Arial' font-size='12' fill='%23666'%3ETask%3C/text%3E%3Ctext x='200' y='30' font-family='Arial' font-size='12' fill='%23666'%3ETimeline%3C/text%3E%3C/svg%3E",
+                shortDescription: 'Visualize project timelines and task dependencies with an interactive Gantt chart. Built with JavaScript, supports drag and drop, and integrates with query results.',
+                fullDescription: 'Visualize project timelines and task dependencies with an interactive Gantt chart. Built with JavaScript, supports drag and drop, and integrates with query results. Perfect for project management and resource planning.',
+                repoLink: 'https://community.retool.com/tag/custom-component',
+                tags: [
+                    { name: 'Charts', style: 'background: #2EC98A; color: #1A1D1F; border-color: #2EC98A;' },
+                    { name: 'Gantt' }
+                ]
+            },
+            {
+                id: 'leaflet-map',
+                title: 'Leaflet Map Viewer',
+                author: '@retool-community',
+                authorInitials: 'RC',
+                authorStyle: 'background: linear-gradient(135deg, #34d399 0%, #3b82f6 100%);',
+                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240'%3E%3Crect fill='%2393c5fd' width='400' height='240'/%3E%3Cpath fill='%2334d399' d='M50,50 Q100,80 150,50 T250,50 Q300,80 350,50 L350,190 Q300,160 250,190 T150,190 Q100,160 50,190 Z' opacity='0.3'/%3E%3Ccircle cx='120' cy='90' r='8' fill='%23ef4444'/%3E%3Ccircle cx='280' cy='130' r='8' fill='%23ef4444'/%3E%3Ccircle cx='200' cy='150' r='8' fill='%23ef4444'/%3E%3C/svg%3E",
+                shortDescription: 'Interactive mapping component built with Leaflet.js. Display markers, polygons, heatmaps, and custom overlays with support for GeoJSON data.',
+                fullDescription: 'Interactive mapping component built with Leaflet.js. Display markers, polygons, heatmaps, and custom overlays with support for GeoJSON data. Ideal for location-based applications and geographic visualizations.',
+                repoLink: 'https://community.retool.com/tag/custom-component',
+                tags: [
+                    { name: 'Maps', style: 'background: #34d399; color: #1A1D1F; border-color: #34d399;' }
+                ]
+            },
+            {
+                id: 'data-grid',
+                title: 'Advanced Data Grid',
+                author: '@retool-community',
+                authorInitials: 'RC',
+                authorStyle: 'background: linear-gradient(135deg, #F5A623 0%, #8B7EFF 100%);',
+                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240'%3E%3Crect fill='%23f8f9fa' width='400' height='240'/%3E%3Crect x='20' y='20' width='360' height='40' fill='%236BBAFF' opacity='0.2'/%3E%3Ctext x='40' y='45' font-family='Arial' font-size='14' fill='%23374151' font-weight='bold'%3EName%3C/text%3E%3Ctext x='140' y='45' font-family='Arial' font-size='14' fill='%23374151' font-weight='bold'%3EStatus%3C/text%3E%3Ctext x='240' y='45' font-family='Arial' font-size='14' fill='%23374151' font-weight='bold'%3EDate%3C/text%3E%3Crect x='20' y='60' width='360' height='1' fill='%23e5e7eb'/%3E%3Ctext x='40' y='85' font-family='Arial' font-size='12' fill='%23666'%3EProject Alpha%3C/text%3E%3Crect x='140' y='75' width='60' height='18' rx='9' fill='%2310b981' opacity='0.2'/%3E%3Ctext x='155' y='87' font-family='Arial' font-size='11' fill='%2310b981'%3EActive%3C/text%3E%3Ctext x='240' y='85' font-family='Arial' font-size='12' fill='%23666'%3E2024-01-15%3C/text%3E%3Crect x='20' y='95' width='360' height='1' fill='%23f3f4f6'/%3E%3Ctext x='40' y='120' font-family='Arial' font-size='12' fill='%23666'%3EProject Beta%3C/text%3E%3Crect x='140' y='110' width='60' height='18' rx='9' fill='%23f59e0b' opacity='0.2'/%3E%3Ctext x='150' y='122' font-family='Arial' font-size='11' fill='%23f59e0b'%3EPending%3C/text%3E%3Ctext x='240' y='120' font-family='Arial' font-size='12' fill='%23666'%3E2024-01-20%3C/text%3E%3C/svg%3E",
+                shortDescription: 'High-performance data grid with sorting, filtering, pagination, and inline editing. Supports large datasets and custom cell renderers.',
+                fullDescription: 'High-performance data grid with sorting, filtering, pagination, and inline editing. Supports large datasets and custom cell renderers. Perfect for displaying and managing tabular data in your Retool applications.',
+                repoLink: 'https://community.retool.com/tag/custom-component',
+                tags: [
+                    { name: 'UI Components', style: 'background: #F5A623; color: #FFFFFF; border-color: #F5A623;' },
+                    { name: 'Data Tables' }
+                ]
+            },
+            {
+                id: 'chartjs',
+                title: 'Chart.js Visualizations',
+                author: '@retool-community',
+                authorInitials: 'RC',
+                authorStyle: 'background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);',
+                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240'%3E%3Crect fill='%23111827' width='400' height='240'/%3E%3Cpath d='M 200 120 m -70 0 a 70 70 0 1 1 0 1 z' fill='none' stroke='%232EC98A' stroke-width='18' stroke-dasharray='140 440'/%3E%3Cpath d='M 200 120 m -70 0 a 70 70 0 0 1 0 -1 z' fill='none' stroke='%23fbbf24' stroke-width='18' stroke-dasharray='110 440' transform='rotate(120 200 120)'/%3E%3Cpath d='M 200 120 m -70 0 a 70 70 0 0 1 1 0 z' fill='none' stroke='%23f87171' stroke-width='18' stroke-dasharray='190 440' transform='rotate(230 200 120)'/%3E%3C/svg%3E",
+                shortDescription: 'Create beautiful charts and graphs with Chart.js. Supports line, bar, pie, donut, radar, and mixed chart types with full customization.',
+                fullDescription: 'Create beautiful charts and graphs with Chart.js. Supports line, bar, pie, donut, radar, and mixed chart types with full customization. Responsive and interactive visualizations for your data.',
+                repoLink: 'https://community.retool.com/tag/custom-component',
+                tags: [
+                    { name: 'Charts', style: 'background: #f59e0b; color: #1A1D1F; border-color: #f59e0b;' }
+                ]
+            }
+        ];
+
+        // ===== Champions =====
+        // Add or remove author handles here to manage champion status
+
+        const champions = new Set([
+            '@abusedmedia',
+            '@jamesg31',
+        ]);
+
+        // ===== Edit Mode =====
+
+        const VALIDATE_WEBHOOK = 'https://api.retool.com/v1/workflows/109e8eb2-507b-4573-9ab3-fce34a58107f/startTrigger?workflowApiKey=retool_wk_490325bf5e0648f38ad4c807f1537351';
+        const UPDATE_WEBHOOK   = 'https://api.retool.com/v1/workflows/50a3d9a0-fa02-4f25-867d-8cea0ef69a4b/startTrigger?workflowApiKey=retool_wk_6877faad708f49e3b83b67f05768e8a9';
+
+        let editMode  = false;
+        let editToken = null;
+        let editData  = null;
+
+        // ===== Vote Storage =====
+        // Single in-memory votes object — mutated directly, also persisted to localStorage
+
+        let votes = {};
+        try {
+            votes = JSON.parse(localStorage.getItem('retoolGalleryVotes') || '{}');
+        } catch (e) {
+            votes = {};
+        }
+
+        function saveVotes() {
+            try { localStorage.setItem('retoolGalleryVotes', JSON.stringify(votes)); } catch (e) {}
+        }
+
+        // Returns the component ID this session voted for, or null
+        function getSessionVote() {
+            return sessionStorage.getItem('retoolGallerySessionVote');
+        }
+
+        function castVote(event, componentId) {
+            event.stopPropagation();
+
+            const previousVote = getSessionVote();
+            if (previousVote === componentId) return; // already on this one
+
+            // Remove vote from previous card
+            if (previousVote) {
+                votes[previousVote] = Math.max(0, (votes[previousVote] || 0) - 1);
+            }
+
+            // Add vote to new card
+            votes[componentId] = (votes[componentId] || 0) + 1;
+
+            saveVotes();
+            sessionStorage.setItem('retoolGallerySessionVote', componentId);
+
+            renderGallery();
+            showToast(previousVote ? 'Vote switched!' : 'Your vote has been cast!');
+        }
+
+        // ===== Toast =====
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3200);
+        }
+
+        // ===== Filter State =====
+
+        let currentFilter = 'All Components';
+        let currentSearch = '';
+
+        const filterTagMap = {
+            'AI & Agents':   ['Chat', 'AI', 'Agents', 'Workflows'],
+            'Charts & Maps': ['Charts', 'Gantt', 'Maps', 'Calendar'],
+            'Data & Files':  ['Data Tables', 'Export', 'PDF', 'File Upload'],
+            'Editors':       ['Editors', 'Rich Text', 'Markdown'],
+            'UI & Layout':   ['UI Components', 'Navigation', 'Carousel', 'Tree View', 'Drag & Drop', 'Kanban', 'Forms', 'React', 'Custom'],
+        };
+
+        function getFilteredSorted() {
+            let list = [...components];
+
+            if (currentFilter === '★ Community Champions') {
+                list = list.filter(c => champions.has(c.author));
+            } else if (currentFilter !== 'All Components') {
+                const allowed = filterTagMap[currentFilter] || [];
+                list = list.filter(c => c.tags.some(t => allowed.includes(t.name)));
+            }
+
+            if (currentSearch.trim()) {
+                const q = currentSearch.trim().toLowerCase();
+                list = list.filter(c =>
+                    c.title.toLowerCase().includes(q) ||
+                    c.shortDescription.toLowerCase().includes(q) ||
+                    c.author.toLowerCase().includes(q) ||
+                    c.tags.some(t => t.name.toLowerCase().includes(q))
+                );
+            }
+
+            // Sort by votes descending (ties keep original order)
+            list.sort((a, b) => (votes[b.id] || 0) - (votes[a.id] || 0));
+            return list;
+        }
+
+        // ===== Render =====
+
+        function renderGallery() {
+            const sessionVote = getSessionVote();
+
+            // Global ranking order (all components, sorted by votes) for rank badges
+            const globalRanked = [...components].sort((a, b) =>
+                (votes[b.id] || 0) - (votes[a.id] || 0)
+            );
+
+            const list = getFilteredSorted();
+            const gallery = document.getElementById('gallery');
+
+            if (list.length === 0) {
+                gallery.innerHTML = '<div class="empty-state">No components match your search.</div>';
+                return;
+            }
+
+            const githubIcon = `<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>`;
+
+            gallery.innerHTML = list.map(comp => {
+                const voteCount = votes[comp.id] || 0;
+                const isVotedFor = sessionVote === comp.id;
+                const rank = globalRanked.findIndex(c => c.id === comp.id) + 1;
+
+                let rankClass = '';
+                let rankLabel = `#${rank}`;
+                if (rank === 1) { rankClass = 'gold';   rankLabel = '🥇 #1'; }
+                else if (rank === 2) { rankClass = 'silver'; rankLabel = '🥈 #2'; }
+                else if (rank === 3) { rankClass = 'bronze'; rankLabel = '🥉 #3'; }
+
+                const tagsHtml = comp.tags.map(tag =>
+                    `<span class="tag" style="${tag.style || ''}">${tag.name}</span>`
+                ).join('');
+
+                const isChampion = champions.has(comp.author);
+                const championBadge = isChampion
+                    ? `<span class="champion-badge">&#9733; Community Champion</span>`
+                    : '';
+
+                const starIcon = isVotedFor ? '★' : '☆';
+                let starBtn;
+                if (isVotedFor) {
+                    starBtn = `<button class="star-btn voted" disabled onclick="event.stopPropagation()"><span class="star-icon">${starIcon}</span><span class="star-count">${voteCount}</span></button>`;
+                } else {
+                    starBtn = `<button class="star-btn" onclick="castVote(event, '${comp.id}')"><span class="star-icon">${starIcon}</span><span class="star-count">${voteCount}</span></button>`;
+                }
+
+                return `
+                <div class="component-card" onclick="openModal('${comp.id}')" style="cursor: pointer;">
+                    <div class="card-media">
+                        <img src="${comp.image}" alt="${comp.title} preview">
+                        <div class="rank-badge ${rankClass}">${rankLabel}</div>
+                        ${starBtn}
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">${comp.title}</h3>
+                                <div class="card-author">
+                                    <span class="author-avatar" style="${comp.authorStyle}"></span>
+                                    <span>${comp.author}</span>
+                                    ${championBadge}
+                                </div>
+                            </div>
+                            <a href="${comp.repoLink}" class="github-link" onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;" target="_blank">
+                                ${githubIcon}
+                                Download Component
+                            </a>
+                        </div>
+                        <p class="card-description">${comp.shortDescription}</p>
+                        <div class="card-tags">${tagsHtml}</div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // ===== Icon constants & repo button helper =====
+
+        const _githubIcon = `<svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>`;
+
+        const _retoolIcon = `<svg width="18" height="18" viewBox="0 0 960 1024" xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="flex-shrink:0;display:block;" preserveAspectRatio="xMidYMid meet"><path d="M640 48C640 21.4903 618.51 0 592 0H48C21.4903 0 0 21.4903 0 48V272C0 298.51 21.4903 320 48 320H592C618.51 320 640 341.49 640 368V432C640 458.51 618.51 480 592 480H240C213.49 480 192 501.49 192 528V752C192 778.51 213.49 800 240 800H592C618.51 800 640 821.49 640 848V976C640 1002.51 661.49 1024 688 1024H912C938.51 1024 960 1002.51 960 976V752C960 725.49 938.51 704 912 704H688C661.49 704 640 682.51 640 656V592C640 565.49 661.49 544 688 544H912C938.51 544 960 522.51 960 496V272C960 245.49 938.51 224 912 224H688C661.49 224 640 202.51 640 176V48Z"/></svg>`;
+
+        function _getEmbedUrl(url) {
+            if (!url) return null;
+            // YouTube: watch?v=, youtu.be/, shorts/
+            const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+            if (yt) return 'https://www.youtube.com/embed/' + yt[1];
+            // Vimeo
+            const vm = url.match(/vimeo\.com\/(\d+)/);
+            if (vm) return 'https://player.vimeo.com/video/' + vm[1];
+            return null;
+        }
+
+        function _repoBtnContent(url) {
+            const isForum = url && url.includes('community.retool.com');
+            return {
+                icon:  isForum ? _retoolIcon : _githubIcon,
+                label: 'Download Component'
+            };
+        }
+
+        // ===== Modal =====
+
+        function openModal(componentId) {
+            const comp = components.find(c => c.id === componentId);
+            if (!comp) return;
+
+            document.getElementById('modalTitle').textContent = comp.title;
+            document.getElementById('modalAuthorAvatar').textContent = comp.authorInitials;
+            const modalChampionBadge = champions.has(comp.author)
+                ? ` <span class="champion-badge">&#9733; Community Champion</span>`
+                : '';
+            document.getElementById('modalAuthorName').innerHTML = comp.author + modalChampionBadge;
+            document.getElementById('modalPreview').src = comp.image;
+            document.getElementById('modalDescription').textContent = comp.fullDescription;
+            const _rb = _repoBtnContent(comp.repoLink);
+            const _rl = document.getElementById('modalRepoLink');
+            _rl.href = comp.repoLink;
+            _rl.innerHTML = _rb.icon + ' ' + _rb.label;
+
+            document.getElementById('modalTags').innerHTML = comp.tags.map(tag =>
+                `<span class="modal-tag" style="${tag.style || ''}">${tag.name}</span>`
+            ).join('');
+
+            document.getElementById('componentModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('componentModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ===== Init =====
+
+        document.addEventListener('DOMContentLoaded', function () {
+            renderGallery();
+            buildSubmitModal();
+            initEditMode();
+
+            // Search
+            document.querySelector('.search-box input').addEventListener('input', function () {
+                currentSearch = this.value;
+                renderGallery();
+            });
+
+            // Tag filters
+            document.querySelectorAll('.tag-button').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('.tag-button').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.textContent.trim();
+                    renderGallery();
+                });
+            });
+
+            // Close modal on backdrop click
+            document.getElementById('componentModal').addEventListener('click', function (e) {
+                if (e.target === this) closeModal();
+            });
+
+            // Close modal on Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    closeSubmitModal();
+                }
+            });
+        });
+
+        // ===== Submission Form =====
+
+        const SUBMIT_TAGS = [
+            'Chat', 'Drag & Drop', 'AI', 'Kanban', 'Agents', 'Gantt', 'Workflows', 'PDF', 'Charts',
+            'Calendar', 'Maps', 'Tree View', 'Editors', 'Rich Text', 'Markdown', 'File Upload',
+            'Export', 'Carousel', 'UI Components', 'Navigation', 'Data Tables', 'Forms', 'React', 'Custom'
+        ];
+
+        let selectedTags = [];
+        let uploadedFiles = []; // array of { file, dataUrl }
+
+        // Safely escape user input before inserting into HTML
+        function esc(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function openSubmitModal() {
+            editMode  = false;
+            editToken = null;
+            buildSubmitModal();
+            selectedTags = [];
+            uploadedFiles = [];
+            document.getElementById('submitOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSubmitModal() {
+            document.getElementById('submitOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function buildSubmitModal() {
+            const tagsHtml = SUBMIT_TAGS.map(tag =>
+                `<button type="button" class="tag-pick-btn" onclick="toggleSubmitTag(this, '${tag}')">${tag}</button>`
+            ).join('');
+
+            document.getElementById('submitOverlay').innerHTML = `
+            <div class="submit-modal" id="submitModal">
+                <div class="submit-modal-header">
+                    <h2 id="submitModalTitle">Submit a Component</h2>
+                    <button class="modal-close" onclick="closeSubmitModal()">&times;</button>
+                </div>
+
+                <!-- Form -->
+                <div class="submit-modal-body" id="submitFormBody">
+                    <div class="prereq-banner">
+                        <div class="prereq-banner-title">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                            Before you submit
+                        </div>
+                        <div class="prereq-banner-body">
+                            Your component must be added to our <a href="https://github.com/laboyangelik/retool-custom-component-gallery" target="_blank">community GitHub repository</a> with an open pull request before submitting this form. This is a hard requirement — submissions without a valid PR link will not be accepted.<br><br>
+                            Haven't opened your PR yet? Copy the component template, and come back once your pull request is open.
+                        </div>
+                    </div>
+                    <form id="submitForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Your Name <span class="req">*</span></label>
+                                <input class="form-input" id="sf-name" type="text" placeholder="Jane Smith">
+                                <div class="field-error-msg" id="err-name">Please enter your name.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Community Username <span class="req">*</span></label>
+                                <div class="input-prefix-wrap" id="wrap-username">
+                                    <span class="input-prefix">@</span>
+                                    <input id="sf-username" type="text" placeholder="yourhandle">
+                                </div>
+                                <div class="field-error-msg" id="err-username">Please enter your community username.</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email <span class="req">*</span></label>
+                            <input class="form-input" id="sf-email" type="email" placeholder="you@example.com">
+                            <div class="field-error-msg" id="err-email">Please enter a valid email address.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Project Name <span class="req">*</span> <span class="opt">— max 50 characters</span></label>
+                            <input class="form-input" id="sf-project" type="text" maxlength="50"
+                                placeholder="My Awesome Component"
+                                oninput="updateCharCounter('sf-project','sf-project-counter',50)">
+                            <div class="char-counter" id="sf-project-counter">0 / 50</div>
+                            <div class="field-error-msg" id="err-project">Please enter the project name.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">GitHub Pull Request URL <span class="req">*</span></label>
+                            <input class="form-input" id="sf-repo" type="url" placeholder="https://github.com/owner/repo/pull/123">
+                            <div class="field-error-msg" id="err-repo">Please enter a valid GitHub pull request URL (e.g. github.com/owner/repo/pull/123).</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">About this component <span class="req">*</span> <span class="opt">— max 100 characters</span></label>
+                            <input class="form-input" id="sf-about" type="text" maxlength="100"
+                                placeholder="One-line summary of what this component does"
+                                oninput="updateCharCounter('sf-about','sf-about-counter',100)">
+                            <div class="char-counter" id="sf-about-counter">0 / 100</div>
+                            <div class="field-error-msg" id="err-about">Please add a short description (required).</div>
+
+                            <div class="desc-attachment">
+                                <div class="form-sublabel">How it works <span class="req">*</span></div>
+                                <div class="wed-wrap" id="sf-how-wrap">
+                                    <div class="wed-toolbar">
+                                        <button type="button" class="wed-btn" id="sf-how-bold" title="Bold" onmousedown="event.preventDefault()" onclick="wedFormat('bold')"><b>B</b></button>
+                                        <button type="button" class="wed-btn" id="sf-how-italic" title="Italic" onmousedown="event.preventDefault()" onclick="wedFormat('italic')"><em style="font-style:italic">I</em></button>
+                                        <span class="wed-sep"></span>
+                                        <button type="button" class="wed-btn" title="Insert code block" onmousedown="event.preventDefault()" onclick="wedInsertCode('sf-how')"><span style="font-family:monospace;font-size:1.1em">&lt;/&gt;</span> Code</button>
+                                        <button type="button" class="wed-btn" title="Insert screenshot or GIF" onmousedown="event.preventDefault()" onclick="document.getElementById('sf-how-img-input').click()">&#128247; Screenshot / GIF</button>
+                                        <input type="file" id="sf-how-img-input" accept="image/*,.gif" multiple style="display:none" onchange="wedInsertImage(this,'sf-how')">
+                                    </div>
+                                    <div class="wed-area" id="sf-how-area"></div>
+                                </div>
+                                <div class="field-error-msg" id="err-how">Please describe how it works.</div>
+
+                                <div class="form-sublabel" style="margin-top:16px;">Building Process <span class="req">*</span></div>
+                                <div class="wed-wrap" id="sf-process-wrap">
+                                    <div class="wed-toolbar">
+                                        <button type="button" class="wed-btn" id="sf-process-bold" title="Bold" onmousedown="event.preventDefault()" onclick="wedFormat('bold')"><b>B</b></button>
+                                        <button type="button" class="wed-btn" id="sf-process-italic" title="Italic" onmousedown="event.preventDefault()" onclick="wedFormat('italic')"><em style="font-style:italic">I</em></button>
+                                        <span class="wed-sep"></span>
+                                        <button type="button" class="wed-btn" title="Insert code block" onmousedown="event.preventDefault()" onclick="wedInsertCode('sf-process')"><span style="font-family:monospace;font-size:1.1em">&lt;/&gt;</span> Code</button>
+                                        <button type="button" class="wed-btn" title="Insert screenshot or GIF" onmousedown="event.preventDefault()" onclick="document.getElementById('sf-process-img-input').click()">&#128247; Screenshot / GIF</button>
+                                        <input type="file" id="sf-process-img-input" accept="image/*,.gif" multiple style="display:none" onchange="wedInsertImage(this,'sf-process')">
+                                    </div>
+                                    <div class="wed-area" id="sf-process-area"></div>
+                                </div>
+                                <div class="field-error-msg" id="err-process">Please describe the building process.</div>
+
+                                <div class="form-sublabel" style="margin-top:16px;">Cover Image <span class="req">*</span> <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#94A3B8;font-size:1em;">— shown as the card thumbnail</span></div>
+                                <div class="file-drop-zone" id="sf-file-zone"
+                                    ondragover="handleDragOver(event)"
+                                    ondragleave="handleDragLeave(event)"
+                                    ondrop="handleDrop(event)">
+                                    <input type="file" id="sf-file" accept="image/*,.gif" onchange="handleFileChange(this)">
+                                    <div class="file-drop-icon">&#128247;</div>
+                                    <div class="file-drop-text" id="sf-drop-text"><strong>Click to upload</strong> or drag and drop</div>
+                                    <div class="file-drop-hint">PNG, JPG, GIF &mdash; one cover image</div>
+                                </div>
+                                <div class="file-grid" id="sf-file-grid"></div>
+                                <div class="field-error-msg" id="err-file">Please upload at least one screenshot or GIF.</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Demo Video URL <span class="opt">(optional)</span></label>
+                            <input class="form-input" id="sf-video" type="url" placeholder="https://youtube.com/watch?v=…">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="form-label">Tags <span class="req">*</span> <span class="opt">— pick at least one</span></label>
+                            <div class="tag-picker" id="sf-tag-picker">${tagsHtml}</div>
+                            <div class="field-error-msg" id="err-tags">Please select at least one tag.</div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Preview -->
+                <div class="submit-preview-body" id="submitPreviewBody" style="display:none;">
+                    <p class="preview-edit-hint">&#9998; Click any text to edit it before submitting</p>
+                    <div class="preview-card-wrap" id="previewCardSlot"></div>
+                </div>
+
+                <!-- Success -->
+                <div class="submit-success" id="submitSuccess">
+                    <div class="submit-success-icon">&#127881;</div>
+                    <h3>Submission received!</h3>
+                    <p>Thanks for submitting your component. Our team will review it and reach out if it gets added to the gallery.</p>
+                </div>
+
+                <!-- Footer -->
+                <div class="submit-modal-footer" id="submitFooter">
+                    <div id="footerFormBtns" style="display:flex;gap:12px;width:100%;justify-content:flex-end;">
+                        <button class="modal-btn secondary" type="button" onclick="closeSubmitModal()">Cancel</button>
+                        <button class="modal-btn primary" type="button" onclick="handleSubmit()">Preview Submission &rarr;</button>
+                    </div>
+                    <div id="footerPreviewBtns" style="display:none;gap:12px;width:100%;justify-content:flex-end;">
+                        <button class="modal-btn secondary" type="button" onclick="backToForm()">&larr; Edit</button>
+                        <button class="modal-btn primary" type="button" onclick="confirmSubmit()">Confirm &amp; Submit</button>
+                    </div>
+                </div>
+            </div>`;
+
+            document.getElementById('submitOverlay').addEventListener('click', function (e) {
+                if (e.target === this) closeSubmitModal();
+            });
+
+            initWed('sf-how');
+            initWed('sf-process');
+        }
+
+        function toggleSubmitTag(btn, tag) {
+            btn.classList.toggle('selected');
+            if (btn.classList.contains('selected')) {
+                selectedTags.push(tag);
+            } else {
+                selectedTags = selectedTags.filter(t => t !== tag);
+            }
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            document.getElementById('sf-file-zone').classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            document.getElementById('sf-file-zone').classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            document.getElementById('sf-file-zone').classList.remove('drag-over');
+            if (e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
+        }
+
+        function handleFileChange(input) {
+            if (input.files && input.files.length) {
+                addFiles(input.files);
+                // Reset so the same file can be re-added after removal
+                input.value = '';
+            }
+        }
+
+        function addFiles(fileList) {
+            const file = Array.from(fileList).find(f => f.type.startsWith('image/'));
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                uploadedFiles = [{ file, dataUrl: e.target.result }];
+                renderFileGrid();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function renderFileGrid() {
+            const grid = document.getElementById('sf-file-grid');
+            const zone = document.getElementById('sf-file-zone');
+            const dropText = document.getElementById('sf-drop-text');
+
+            if (!grid) return;
+
+            zone.classList.toggle('has-file', uploadedFiles.length > 0);
+            zone.classList.remove('field-error');
+            document.getElementById('err-file').classList.remove('visible');
+
+            dropText.innerHTML = uploadedFiles.length > 0
+                ? `<strong>Replace cover</strong> or drag and drop`
+                : `<strong>Click to upload</strong> or drag and drop`;
+
+            grid.innerHTML = uploadedFiles.map((item, i) => `
+                <div class="file-thumb">
+                    <img src="${item.dataUrl}" alt="Cover image">
+                    <button class="file-thumb-remove" type="button"
+                        onclick="removeFile(${i})" title="Remove">&#10005;</button>
+                </div>`
+            ).join('');
+        }
+
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            renderFileGrid();
+        }
+
+        // ===== Block Editor =====
+
+        let _wedDrag = null;
+
+        function initWed(editorId) {
+            const area = document.getElementById(editorId + '-area');
+            if (!area || area.children.length > 0) return;
+            const block = _wedMakeText(editorId, '');
+            area.appendChild(block);
+            // Click empty area → focus last text block or add one
+            area.addEventListener('click', e => {
+                if (e.target !== area) return;
+                const last = [...area.querySelectorAll('.wed-text')].pop();
+                if (last) { last.focus(); _wedCursorEnd(last); }
+                else { const b = _wedMakeText(editorId, ''); area.appendChild(b); b.querySelector('.wed-text').focus(); }
+            });
+        }
+
+        function _wedMakeText(editorId, html) {
+            const block = _wedBlock(editorId);
+            const div = document.createElement('div');
+            div.className = 'wed-text';
+            div.contentEditable = 'true';
+            div.dataset.placeholder = 'Start typing…';
+            if (html) div.innerHTML = html;
+            div.addEventListener('keydown', e => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    // Split content at caret
+                    const sel = window.getSelection();
+                    if (sel.rangeCount) {
+                        const range = sel.getRangeAt(0);
+                        const after = range.cloneRange();
+                        after.selectNodeContents(div);
+                        after.setStart(range.endContainer, range.endOffset);
+                        const frag = after.cloneContents();
+                        after.deleteContents();
+                        const nb = _wedMakeText(editorId, '');
+                        const nt = nb.querySelector('.wed-text');
+                        nt.appendChild(frag);
+                        block.after(nb);
+                        nt.focus();
+                        _wedCursorStart(nt);
+                    }
+                }
+                if (e.key === 'Backspace') {
+                    const area = block.parentElement;
+                    if (!div.textContent && area && area.querySelectorAll('.wed-block').length > 1) {
+                        e.preventDefault();
+                        const prev = block.previousElementSibling;
+                        block.remove();
+                        const target = prev || area.lastElementChild;
+                        const t = target?.querySelector('.wed-text');
+                        if (t) { t.focus(); _wedCursorEnd(t); }
+                    }
+                }
+            });
+            block.querySelector('.wed-block-inner').appendChild(div);
+            return block;
+        }
+
+        function _wedMakeCode(editorId) {
+            const block = _wedBlock(editorId);
+            const wrap = document.createElement('div');
+            wrap.className = 'wed-code-block';
+            const hdr = document.createElement('div');
+            hdr.className = 'wed-code-header';
+            const lbl = document.createElement('span');
+            lbl.className = 'wed-code-lang';
+            lbl.textContent = 'code';
+            const rm = document.createElement('button');
+            rm.type = 'button'; rm.className = 'wed-code-rm'; rm.innerHTML = '&#10005;'; rm.title = 'Remove';
+            rm.onclick = () => {
+                const area = block.parentElement;
+                if (area && area.querySelectorAll('.wed-block').length === 1) {
+                    const nb = _wedMakeText(editorId, '');
+                    block.after(nb);
+                }
+                block.remove();
+            };
+            hdr.appendChild(lbl); hdr.appendChild(rm);
+            const code = document.createElement('div');
+            code.className = 'wed-code-input';
+            code.contentEditable = 'true';
+            code.spellcheck = false;
+            code.addEventListener('keydown', e => {
+                if (e.key === 'Tab') { e.preventDefault(); document.execCommand('insertText', false, '    '); }
+                if (e.key === 'Escape') {
+                    const next = block.nextElementSibling;
+                    const t = next?.querySelector('.wed-text');
+                    if (t) { t.focus(); _wedCursorStart(t); }
+                    else {
+                        const nb = _wedMakeText(editorId, '');
+                        block.after(nb);
+                        nb.querySelector('.wed-text').focus();
+                    }
+                }
+            });
+            wrap.appendChild(hdr); wrap.appendChild(code);
+            block.querySelector('.wed-block-inner').appendChild(wrap);
+            return block;
+        }
+
+        function _wedMakeImage(editorId, src) {
+            const block = _wedBlock(editorId);
+            const wrap = document.createElement('div');
+            wrap.className = 'wed-img-block';
+            const img = document.createElement('img');
+            img.src = src; img.alt = ''; img.draggable = false;
+            const rm = document.createElement('button');
+            rm.type = 'button'; rm.className = 'wed-img-rm'; rm.innerHTML = '&#10005;'; rm.title = 'Remove';
+            rm.onclick = () => block.remove();
+            wrap.appendChild(img);
+            block.querySelector('.wed-block-inner').appendChild(wrap);
+            block.appendChild(rm);
+            return block;
+        }
+
+        function _wedBlock(editorId) {
+            const block = document.createElement('div');
+            block.className = 'wed-block';
+            const handle = document.createElement('span');
+            handle.className = 'wed-drag';
+            handle.innerHTML = '&#9646;&#9646;';
+            handle.title = 'Drag to reorder';
+            handle.addEventListener('mousedown', () => { block.draggable = true; });
+            const inner = document.createElement('div');
+            inner.className = 'wed-block-inner';
+            block.appendChild(handle);
+            block.appendChild(inner);
+            block.addEventListener('dragstart', _wedDragStart);
+            block.addEventListener('dragend',   _wedDragEnd);
+            block.addEventListener('dragover',  _wedDragOver);
+            block.addEventListener('dragleave', _wedDragLeave);
+            block.addEventListener('drop',      _wedDrop);
+            return block;
+        }
+
+        function _wedDragStart(e) {
+            _wedDrag = this; this.classList.add('wed-dragging');
+            e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', '');
+        }
+        function _wedDragEnd() {
+            this.draggable = false; this.classList.remove('wed-dragging');
+            document.querySelectorAll('.wed-block').forEach(b => b.classList.remove('wed-over-top','wed-over-bot'));
+            _wedDrag = null;
+        }
+        function _wedDragOver(e) {
+            if (!_wedDrag || _wedDrag === this) return;
+            e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+            const mid = this.getBoundingClientRect().top + this.offsetHeight / 2;
+            this.classList.toggle('wed-over-top', e.clientY < mid);
+            this.classList.toggle('wed-over-bot', e.clientY >= mid);
+        }
+        function _wedDragLeave() { this.classList.remove('wed-over-top','wed-over-bot'); }
+        function _wedDrop(e) {
+            e.preventDefault();
+            if (!_wedDrag || _wedDrag === this) return;
+            const mid = this.getBoundingClientRect().top + this.offsetHeight / 2;
+            if (e.clientY < mid) this.parentNode.insertBefore(_wedDrag, this);
+            else this.parentNode.insertBefore(_wedDrag, this.nextSibling);
+            this.classList.remove('wed-over-top','wed-over-bot');
+        }
+
+        function wedInsertCode(editorId) {
+            const area = document.getElementById(editorId + '-area');
+            const focusedBlock = document.activeElement?.closest?.('.wed-block');
+            const block = _wedMakeCode(editorId);
+            if (focusedBlock && focusedBlock.parentElement === area) focusedBlock.after(block);
+            else area.appendChild(block);
+            block.querySelector('.wed-code-input').focus();
+            // Empty text block after for continuation
+            const nb = _wedMakeText(editorId, '');
+            block.after(nb);
+        }
+
+        function wedInsertImage(input, editorId) {
+            const area = document.getElementById(editorId + '-area');
+            const focusedBlock = document.activeElement?.closest?.('.wed-block');
+            Array.from(input.files).filter(f => f.type.startsWith('image/')).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = ev => {
+                    const block = _wedMakeImage(editorId, ev.target.result);
+                    if (focusedBlock && focusedBlock.parentElement === area) focusedBlock.after(block);
+                    else area.appendChild(block);
+                    const nb = _wedMakeText(editorId, '');
+                    block.after(nb);
+                };
+                reader.readAsDataURL(file);
+            });
+            input.value = '';
+        }
+
+        function wedFormat(cmd) { document.execCommand(cmd, false, null); }
+
+        // Update B/I active states when selection changes
+        document.addEventListener('selectionchange', () => {
+            ['sf-how', 'sf-process'].forEach(id => {
+                const area = document.getElementById(id + '-area');
+                if (!area) return;
+                const active = document.activeElement;
+                if (!area.contains(active)) return;
+                const b = document.getElementById(id + '-bold');
+                const i = document.getElementById(id + '-italic');
+                if (b) b.classList.toggle('wed-active', document.queryCommandState('bold'));
+                if (i) i.classList.toggle('wed-active', document.queryCommandState('italic'));
+            });
+        });
+
+        function _wedCursorEnd(el) {
+            const r = document.createRange(), s = window.getSelection();
+            r.selectNodeContents(el); r.collapse(false);
+            s.removeAllRanges(); s.addRange(r);
+        }
+        function _wedCursorStart(el) {
+            const r = document.createRange(), s = window.getSelection();
+            r.setStart(el, 0); r.collapse(true);
+            s.removeAllRanges(); s.addRange(r);
+        }
+
+        function isWedEmpty(editorId) {
+            const area = document.getElementById(editorId + '-area');
+            if (!area) return true;
+            // In edit mode, area may contain raw HTML without .wed-block wrappers
+            if (!area.querySelector('.wed-block')) {
+                return area.textContent.trim() === '' && !area.querySelector('img');
+            }
+            for (const block of area.querySelectorAll('.wed-block')) {
+                if (block.querySelector('img')) return false;
+                const code = block.querySelector('.wed-code-input');
+                if (code && code.textContent.trim()) return false;
+                const text = block.querySelector('.wed-text');
+                if (text && text.textContent.trim()) return false;
+            }
+            return true;
+        }
+
+        function getWedHTML(editorId) {
+            const area = document.getElementById(editorId + '-area');
+            if (!area) return '';
+            // In edit mode, area may contain raw pre-filled HTML — return it directly
+            if (!area.querySelector('.wed-block')) return area.innerHTML;
+            let html = '';
+            for (const block of area.querySelectorAll('.wed-block')) {
+                const text = block.querySelector('.wed-text');
+                const code = block.querySelector('.wed-code-input');
+                const img  = block.querySelector('img');
+                if (text) {
+                    html += '<p style="margin:0 0 .6em;color:#F1F5F9;line-height:1.72;">' + text.innerHTML + '</p>';
+                } else if (code) {
+                    html += '<pre style="background:#090B0D;border:1px solid #1C1F26;border-radius:8px;'
+                          + 'padding:12px 16px;margin:8px 0;overflow-x:auto;">'
+                          + '<code style="font-family:monospace;color:#F5A623;font-size:.88em;">'
+                          + esc(code.textContent) + '</code></pre>';
+                } else if (img) {
+                    html += '<img src="' + img.src + '" style="max-width:100%;border-radius:8px;display:block;margin:8px 0;">';
+                }
+            }
+            return html;
+        }
+
+        function updateCharCounter(inputId, counterId, max) {
+            const len = document.getElementById(inputId).value.length;
+            const el  = document.getElementById(counterId);
+            el.textContent = len + ' / ' + max;
+            el.classList.toggle('near-limit', len >= max * 0.85 && len < max);
+            el.classList.toggle('at-limit',   len >= max);
+        }
+
+        function handleSubmit() {
+            let valid = true;
+
+            function check(id, errId, condition) {
+                const el = document.getElementById(id);
+                const err = document.getElementById(errId);
+                if (!condition) {
+                    el.classList.add('field-error');
+                    err.classList.add('visible');
+                    valid = false;
+                } else {
+                    el.classList.remove('field-error');
+                    err.classList.remove('visible');
+                }
+            }
+
+            check('sf-name',    'err-name',    document.getElementById('sf-name').value.trim());
+            check('wrap-username', 'err-username', document.getElementById('sf-username').value.trim());
+            const emailVal = document.getElementById('sf-email').value.trim();
+            check('sf-email', 'err-email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal));
+            check('sf-project', 'err-project', document.getElementById('sf-project').value.trim());
+            const repo = document.getElementById('sf-repo').value.trim();
+            check('sf-repo', 'err-repo', repo && repo.startsWith('https://github.com/') && repo.includes('/pull/'));
+            check('sf-about',     'err-about',   document.getElementById('sf-about').value.trim().length > 0);
+            check('sf-how-wrap',  'err-how',     !isWedEmpty('sf-how'));
+            check('sf-process-wrap', 'err-process', !isWedEmpty('sf-process'));
+            // Cover image required on new submissions, optional when editing (keep existing if not replaced)
+            if (!editMode) check('sf-file-zone', 'err-file', uploadedFiles.length > 0);
+
+            const hasTag = selectedTags.length > 0;
+            check('sf-tag-picker', 'err-tags', hasTag);
+
+            if (!valid) return;
+
+            // Build and show preview (detail modal layout)
+            const username  = '@' + document.getElementById('sf-username').value.trim();
+            const project   = document.getElementById('sf-project').value.trim();
+            const about      = document.getElementById('sf-about').value.trim();
+            const howItWorks = getWedHTML('sf-how');
+            const process    = getWedHTML('sf-process');
+            const repoUrl   = document.getElementById('sf-repo').value.trim();
+            const videoUrl  = document.getElementById('sf-video').value.trim();
+            const embedUrl  = _getEmbedUrl(videoUrl);
+            const imgSrc    = uploadedFiles.length > 0 ? uploadedFiles[0].dataUrl : '';
+            const initials  = username.replace('@','').slice(0,2).toUpperCase();
+
+            const tagsHtml = selectedTags.map(t => `<span class="modal-tag">${esc(t)}</span>`).join('');
+
+            const { icon: _pIcon, label: _pLabel } = _repoBtnContent(repoUrl);
+
+            document.getElementById('previewCardSlot').innerHTML = `
+                <div style="background:#141418;border-radius:16px;border:1px solid #374151;overflow:hidden;">
+                    <div class="modal-header" style="position:static;">
+                        <div class="modal-title-section">
+                            <h2 class="modal-title" contenteditable="true" id="pe-title">${esc(project)}</h2>
+                            <div class="modal-meta">
+                                <div class="modal-author">
+                                    <div class="modal-author-avatar">${esc(initials)}</div>
+                                    <span class="modal-author-name">${esc(username)}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-preview">
+                            <img src="${imgSrc}" alt="${esc(project)} preview">
+                        </div>
+                        <div class="modal-section">
+                            <h3>About this component</h3>
+                            <p contenteditable="true" id="pe-about">${esc(about)}</p>
+                        </div>
+                        ${embedUrl ? `<div class="modal-section"><h3>Demo Video</h3><div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;background:#0D0F12;"><iframe src="${embedUrl}" style="position:absolute;inset:0;width:100%;height:100%;border:none;border-radius:10px;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div></div>` : ''}
+                        <div class="modal-section">
+                            <h3>How it works</h3>
+                            <div id="pe-how">${howItWorks}</div>
+                        </div>
+                        <div class="modal-section">
+                            <h3>Building Process</h3>
+                            <div id="pe-process">${process}</div>
+                        </div>
+                        <div class="modal-section">
+                            <h3>Tags</h3>
+                            <div class="modal-tags">${tagsHtml}</div>
+                        </div>
+                    </div>
+                    <div class="modal-actions" style="position:static;">
+                        <a href="${esc(repoUrl)}" class="modal-btn primary" target="_blank">${_pIcon} ${_pLabel}</a>
+                    </div>
+                </div>`;
+
+            // Switch to preview view
+            document.getElementById('submitFormBody').style.display = 'none';
+            document.getElementById('submitPreviewBody').style.display = 'block';
+            document.getElementById('footerFormBtns').style.display = 'none';
+            document.getElementById('footerPreviewBtns').style.display = 'flex';
+            document.getElementById('submitModalTitle').textContent = 'Preview';
+            document.getElementById('submitModal').scrollTop = 0;
+        }
+
+        function backToForm() {
+            document.getElementById('submitFormBody').style.display = 'block';
+            document.getElementById('submitPreviewBody').style.display = 'none';
+            document.getElementById('footerFormBtns').style.display = 'flex';
+            document.getElementById('footerPreviewBtns').style.display = 'none';
+            document.getElementById('submitModalTitle').textContent = 'Submit a Component';
+            document.getElementById('submitModal').scrollTop = 0;
+        }
+
+        // ===== Token Generation =====
+
+        function generateToken() {
+            if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+                const r = Math.random() * 16 | 0;
+                return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+        }
+
+        // ===== Edit Mode Init (runs on page load if ?edit=TOKEN in URL) =====
+
+        async function initEditMode() {
+            const token = new URLSearchParams(window.location.search).get('edit');
+            if (!token) return;
+
+            console.log('[EditMode] Token found:', token);
+
+            const WORKFLOW_ID  = '109e8eb2-507b-4573-9ab3-fce34a58107f';
+            const WORKFLOW_KEY = 'retool_wk_490325bf5e0648f38ad4c807f1537351';
+
+            try {
+                // Step 1: trigger the workflow
+                const res  = await fetch(VALIDATE_WEBHOOK, {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify({ token })
+                });
+                const json = await res.json();
+                console.log('[EditMode] Trigger response:', JSON.stringify(json));
+
+                if (!res.ok) { console.warn('[EditMode] Trigger HTTP error:', res.status); return; }
+
+                const runId = json.workflow_run?.id;
+                if (!runId) { console.warn('[EditMode] No run ID'); return; }
+
+                // Step 2: poll for run completion (async workflow returns PENDING)
+                let rowData = null;
+                for (let i = 0; i < 10; i++) {
+                    await new Promise(r => setTimeout(r, 700));
+                    const pollRes = await fetch(
+                        `https://api.retool.com/v1/workflows/${WORKFLOW_ID}/runs/${runId}?workflowApiKey=${WORKFLOW_KEY}`
+                    );
+                    const poll = await pollRes.json();
+                    console.log(`[EditMode] Poll ${i + 1}: status=${poll?.workflow_run?.status}`, JSON.stringify(poll));
+
+                    if (poll.workflow_run?.status === 'COMPLETED') {
+                        // Try all known locations where Retool may put the output
+                        rowData = poll.workflow_run?.data
+                               ?? poll.workflow_run?.output
+                               ?? poll.workflow_run?.result
+                               ?? poll.data;
+                        break;
+                    }
+                    if (poll.workflow_run?.status === 'FAILED') {
+                        console.warn('[EditMode] Workflow run failed'); break;
+                    }
+                }
+
+                if (!rowData) { console.warn('[EditMode] No row data after polling'); return; }
+                console.log('[EditMode] Row data:', JSON.stringify(rowData));
+
+                // Handle possible nesting: { data: { project_name } } or { project_name } directly
+                const submission = (rowData && typeof rowData === 'object' && rowData.data) ? rowData.data : rowData;
+                if (!submission?.project_name) {
+                    console.warn('[EditMode] project_name missing from submission:', JSON.stringify(submission)); return;
+                }
+
+                editToken = token;
+                editData  = submission;
+                editMode  = false;
+
+                // Attach reviewer feedback if present in the URL (?feedback=...)
+                const feedbackParam = new URLSearchParams(window.location.search).get('feedback');
+                if (feedbackParam) editData.feedback = feedbackParam;
+
+                const btn = document.getElementById('edit-component-btn');
+                btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit: ${esc(editData.project_name)}`;
+                btn.style.display = 'flex';
+                console.log('[EditMode] Button shown for:', editData.project_name);
+
+                // Auto-open the form immediately when arriving via email link
+                openEditModal();
+            } catch (e) {
+                console.error('[EditMode] Error:', e);
+            }
+        }
+
+        // ===== Open Edit Modal (pre-fills form with existing submission data) =====
+
+        function openEditModal() {
+            editMode = true;
+            buildSubmitModal();
+
+            // Pre-fill simple fields
+            document.getElementById('sf-name').value    = editData.name         || '';
+            document.getElementById('sf-username').value = editData.username    || '';
+            document.getElementById('sf-email').value   = editData.email        || '';
+            document.getElementById('sf-project').value = editData.project_name || '';
+            document.getElementById('sf-repo').value    = editData.repo_link    || '';
+            document.getElementById('sf-about').value   = editData.about        || '';
+            document.getElementById('sf-video').value   = editData.video_url    || '';
+            updateCharCounter('sf-project', 'sf-project-counter', 50);
+            updateCharCounter('sf-about',   'sf-about-counter',   100);
+
+            // Pre-fill rich text areas with stored HTML
+            const howArea  = document.getElementById('sf-how-area');
+            const procArea = document.getElementById('sf-process-area');
+            if (howArea  && editData.how_it_works)  howArea.innerHTML  = editData.how_it_works;
+            if (procArea && editData.build_process) procArea.innerHTML = editData.build_process;
+
+            // Pre-select tags
+            selectedTags = (editData.tags || '').split(',').map(t => t.trim()).filter(Boolean);
+            document.querySelectorAll('.tag-pick-btn').forEach(btn => {
+                if (selectedTags.includes(btn.textContent.trim())) btn.classList.add('selected');
+            });
+
+            // Update modal labels for edit mode
+            document.getElementById('submitModalTitle').textContent = 'Edit Your Component';
+            document.querySelector('#footerFormBtns .modal-btn.primary').textContent = 'Preview Changes \u2192';
+
+            // Inject reviewer feedback banner at the top of the form if present
+            if (editData.feedback) {
+                const banner = document.createElement('div');
+                banner.className = 'feedback-banner';
+                banner.innerHTML = `
+                    <div class="feedback-banner-title">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        Reviewer Feedback
+                    </div>
+                    <div class="feedback-banner-body">${esc(editData.feedback)}</div>
+                `;
+                const formBody = document.getElementById('submitFormBody');
+                formBody.insertBefore(banner, formBody.firstChild);
+            }
+
+            document.getElementById('submitOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        async function confirmSubmit() {
+            const SUBMIT_WEBHOOK = 'https://api.retool.com/v1/workflows/887d5fd1-f8e1-4f92-800a-8ff7a28bc622/startTrigger?workflowApiKey=retool_wk_7c33407d2ef541cb904fb7f021ffffe2';
+            const endpoint = editMode ? UPDATE_WEBHOOK : SUBMIT_WEBHOOK;
+
+            const submitBtn = document.querySelector('#footerPreviewBtns .modal-btn.primary');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = editMode ? 'Saving…' : 'Submitting…';
+
+            // On new submissions generate a fresh token; on edits use the existing one
+            const token = editMode ? editToken : generateToken();
+
+            // Cover image: use new upload if provided, otherwise keep existing URL
+            const coverImage = uploadedFiles.length > 0
+                ? uploadedFiles[0].dataUrl
+                : (editMode ? editData.cover_image : '');
+
+            const payload = {
+                edit_token:    token,
+                name:          document.getElementById('sf-name').value.trim(),
+                username:      document.getElementById('sf-username').value.trim(),
+                email:         document.getElementById('sf-email').value.trim(),
+                project_name:  document.getElementById('sf-project').value.trim(),
+                repo_link:     document.getElementById('sf-repo').value.trim(),
+                about:         document.getElementById('sf-about').value.trim(),
+                how_it_works:  getWedHTML('sf-how'),
+                build_process: getWedHTML('sf-process'),
+                video_url:     document.getElementById('sf-video').value.trim(),
+                cover_image:   coverImage,
+                tags:          selectedTags.join(', ')
+            };
+
+            try {
+                const res = await fetch(endpoint, {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify(payload)
+                });
+                const json = await res.json();
+                if (!res.ok || json?.error?.error) {
+                    throw new Error(json?.error?.message || 'HTTP ' + res.status);
+                }
+            } catch (err) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                alert((editMode ? 'Update' : 'Submission') + ' failed:\n\n' + err.message);
+                return;
+            }
+
+            const successEl = document.getElementById('submitSuccess');
+            if (editMode) {
+                successEl.querySelector('h3').textContent = 'Changes submitted!';
+                successEl.querySelector('p').textContent  = 'Your updates are under review. We\'ll apply them to your component shortly.';
+            }
+            document.getElementById('submitPreviewBody').style.display = 'none';
+            document.getElementById('submitFooter').style.display = 'none';
+            successEl.classList.add('visible');
+            selectedTags = [];
+            uploadedFiles = [];
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-nav">
+                <div class="header-nav-left">
+                    <button class="submit-component-btn" onclick="openSubmitModal()">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                        Submit Component
+                    </button>
+                    <button class="edit-component-btn" id="edit-component-btn" onclick="openEditModal()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                        Edit My Component
+                    </button>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Search components...">
+                </div>
+            </div>
+            <h1>Custom Component Gallery</h1>
+            <p>Community-built components for Retool</p>
+            <p class="header-sub">Ranked by community votes &mdash; one vote per session</p>
+        </div>
+
+        <div class="filters">
+            <div class="tag-filter">
+                <button class="tag-button active">All Components</button>
+                <button class="tag-button champion-filter">&#9733; Community Champions</button>
+                <button class="tag-button">AI & Agents</button>
+                <button class="tag-button">Charts & Maps</button>
+                <button class="tag-button">Data & Files</button>
+                <button class="tag-button">Editors</button>
+                <button class="tag-button">UI & Layout</button>
+            </div>
+        </div>
+
+        <div id="gallery" class="gallery"></div>
+    </div>
+
+    <!-- Component Detail Modal -->
+    <div class="modal-overlay" id="componentModal">
+        <div class="modal-content">
+            <div class="modal-scroll-inner">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <h2 class="modal-title" id="modalTitle">Component Title</h2>
+                    <div class="modal-meta">
+                        <div class="modal-author">
+                            <div class="modal-author-avatar" id="modalAuthorAvatar">AT</div>
+                            <span class="modal-author-name" id="modalAuthorName">@author</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-preview">
+                    <img id="modalPreview" src="" alt="Component preview">
+                </div>
+                <div class="modal-section">
+                    <h3>About this component</h3>
+                    <p id="modalDescription"></p>
+                </div>
+                <div class="modal-section">
+                    <h3>Tags</h3>
+                    <div class="modal-tags" id="modalTags"></div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <a href="#" class="modal-btn primary" id="modalRepoLink" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                    View on GitHub
+                </a>
+                <button class="modal-btn secondary" onclick="closeModal()">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submission Form Modal -->
+    <div class="submit-overlay" id="submitOverlay"></div>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast"></div>
+</body>
+</html>
