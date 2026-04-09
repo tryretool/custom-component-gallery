@@ -1,0 +1,66 @@
+{
+  "name": "my-react-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@lexical/code": "^0.41.0",
+    "@lexical/html": "^0.41.0",
+    "@lexical/list": "^0.41.0",
+    "@lexical/react": "^0.41.0",
+    "@lexical/rich-text": "^0.41.0",
+    "@lexical/selection": "^0.41.0",
+    "@tiptap/extension-highlight": "^3.20.4",
+    "@tiptap/extension-image": "^3.20.4",
+    "@tiptap/extension-link": "^3.20.4",
+    "@tiptap/extension-mention": "^3.20.0",
+    "@tiptap/extension-subscript": "^3.20.4",
+    "@tiptap/extension-superscript": "^3.20.4",
+    "@tiptap/extension-text-align": "^3.20.4",
+    "@tiptap/react": "^3.20.0",
+    "@tiptap/starter-kit": "^3.20.0",
+    "@tiptap/suggestion": "^3.20.0",
+    "@tryretool/custom-component-support": "latest",
+    "lexical": "^0.41.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tippy.js": "^6.3.7"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "npx retool-ccl dev",
+    "deploy": "npx retool-ccl deploy",
+    "test": "vitest"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.28",
+    "@types/react-dom": "^18.3.7",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "postcss-modules": "^6.0.0",
+    "prettier": "^3.0.3",
+    "vitest": "^4.0.17"
+  },
+  "retoolCustomComponentLibraryConfig": {
+    "name": "SocialMentionEditor",
+    "label": "SocialMentionEditor",
+    "description": "SocialMentionEditor",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "rich-text-editor",
+  "title": "Advanced Rich Text Editor",
+  "author": "@widlestudiollp",
+  "shortDescription": "A modern WYSIWYG editor with @mentions, formatting tools, image support, and real-time Retool integration for building powerful text workflows.",
+  "tags": [
+    "WYSIWYG",
+    "Editor",
+    "Mentions",
+    "TipTap",
+    "Retool",
+    "Productivity",
+    "Content Editing"
+  ]
+}
