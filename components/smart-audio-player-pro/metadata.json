@@ -1,0 +1,22 @@
+{
+  "id": "smart-audio-player-pro",
+  "title": "Smart Audio Player Pro",
+  "author": "@widlestudiollp",
+  "shortDescription": "A modern smart audio player pro component for Retool with shuffle, repeat, playback memory, themes, and responsive UI.",
+  "longDescription": "Smart Audio Player Pro is a feature-rich Retool custom component that brings a complete music playback experience into your apps. It supports smart shuffle logic, repeat modes, playback memory, smooth transitions, and responsive layouts including mini and fullscreen players. The component also includes dynamic theming and custom styling options, making it ideal for dashboards, internal tools, and media-based applications.",
+  "tags": [
+    "Audio",
+    "Music Player",
+    "Media",
+    "UI Component",
+    "Interactive",
+    "Dashboard",
+    "Responsive",
+    "Custom Component"
+  ],
+  "version": "1.0.0",
+  "pricing": "Free",
+  "compatibility": "Retool v3.0+",
+  "icon": "play",
+  "category": "Media"
+}
