@@ -1,0 +1,16 @@
+{
+  "id": "multi-view-expandable-table",
+  "title": "Multi-View Expandable Table",
+  "author": "@widlestudiollp",
+  "shortDescription": "A responsive expandable table component that displays parent rows with rich multi-view details in expandable sections, including table, cards, bar chart, and key-value pair layouts.",
+  "tags": [
+    "Table",
+    "Expandable Rows",
+    "Data Explorer",
+    "Charts",
+    "Cards",
+    "Key Value Pair",
+    "Responsive",
+    "Analytics"
+  ]
+}
