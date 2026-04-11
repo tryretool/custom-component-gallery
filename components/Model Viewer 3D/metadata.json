@@ -1,7 +1,7 @@
 {
   "id": "model-viewer-3d",
   "title": "Model Viewer 3D",
-  "author": "Antigravity",
+  "author": "@smeng9",
   "shortDescription": "A 3D viewer component using React Three Fiber and Drei.",
   "tags": [
     "UI Components",
