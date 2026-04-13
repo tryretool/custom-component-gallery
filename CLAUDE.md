@@ -5,7 +5,7 @@
 This is the **community gallery repository** — the central collection of community-built Retool custom components. Each component lives in its own folder under `components/`. The gallery website reads from this repo and displays accepted components as cards.
 
 - **Repo:** https://github.com/tryretool/custom-component-gallery
-- **Gallery website:** https://angelikretool.github.io/gallery-frontend/
+- **Gallery website:** https://customcomponents.retool.com
 - **Template repo (how to build components):** https://github.com/tryretool/custom-component-collection-template
 
 ---
