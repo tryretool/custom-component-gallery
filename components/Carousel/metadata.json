@@ -2,21 +2,6 @@
   "id": "image-carousel",
   "title": "Image Carousel",
   "author": "@widlestudiollp",
-  "shortDescription": "A modern image carousel component for Retool with animations, auto-play, navigation controls, and responsive UI.",
-  "longDescription": "Image Carousel is a feature-rich Retool custom component that allows you to display images in an interactive and customizable carousel. It supports multiple animation styles, auto-play functionality, navigation positioning, and UI controls like dots and counters. Designed for performance and flexibility, it works seamlessly across devices and is ideal for dashboards, galleries, and media-rich applications.",
-  "tags": [
-    "Carousel",
-    "Image Slider",
-    "UI Component",
-    "Gallery",
-    "Interactive",
-    "Dashboard",
-    "Responsive",
-    "Custom Component"
-  ],
-  "version": "1.0.0",
-  "pricing": "Free",
-  "compatibility": "Retool v3.0+",
-  "icon": "image",
-  "category": "Media"
+  "shortDescription": "A customizable image carousel component with multiple animations, auto-play, navigation controls, and responsive design for Retool apps.",
+  "tags": ["Carousel", "Image Slider", "UI Component", "Gallery", "Interactive"]
 }

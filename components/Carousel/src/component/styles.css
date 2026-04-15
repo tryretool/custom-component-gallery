@@ -10,7 +10,6 @@
   overflow: hidden;
 }
 
-/* Slides */
 .slide {
   position: absolute;
   inset: 0;
@@ -21,7 +20,6 @@
   display: none;
 }
 
-/* Active animations */
 .slide.active-next {
   animation: slideInFromRight 0.7s ease forwards;
   z-index: 2;
@@ -32,7 +30,6 @@
   z-index: 2;
 }
 
-/* Exit animations */
 .slide.exit-next {
   animation: slideOutToLeft 0.7s ease forwards;
   z-index: 1;
@@ -43,7 +40,6 @@
   z-index: 1;
 }
 
-/* Image */
 .image {
   width: 100%;
   height: 100%;
@@ -52,7 +48,6 @@
   background: transparent;
 }
 
-/* Navigation buttons */
 .nav-button {
   position: absolute;
   top: 50%;
@@ -80,7 +75,6 @@
   right: 20px;
 }
 
-/* Bottom navigation */
 .bottom-nav {
   position: absolute;
   bottom: 16px;
@@ -97,7 +91,6 @@
   transform: none;
 }
 
-/* Dots */
 .dots {
   position: absolute;
   bottom: 16px;
@@ -123,7 +116,6 @@
   background: #000;
 }
 
-/* Counter */
 .counter {
   position: absolute;
   bottom: 16px;
@@ -136,13 +128,11 @@
   z-index: 20;
 }
 
-/* Empty state */
 .empty-state {
   color: #999;
   text-align: center;
 }
 
-/* Animations */
 @keyframes slideInFromRight {
   from {
     transform: translateX(100%);
@@ -187,7 +177,6 @@
   }
 }
 
-/* ===== Fade Animation ===== */
 .slide.fade-in {
   animation: fadeIn 0.6s ease forwards;
   z-index: 2;
@@ -216,7 +205,6 @@
   }
 }
 
-/* ===== Zoom Animation ===== */
 .slide.zoom-in {
   animation: zoomIn 0.6s ease forwards;
   z-index: 2;
@@ -249,13 +237,11 @@
   }
 }
 
-/* ===== No Animation ===== */
 .slide.active {
   opacity: 1;
   z-index: 2;
 }
 
-/* ROTATE */
 .slide.rotate-in {
   animation: rotateIn 0.6s ease forwards;
   z-index: 2;
@@ -265,7 +251,6 @@
   z-index: 1;
 }
 
-/* BLUR */
 .slide.blur-in {
   animation: blurIn 0.6s ease forwards;
   z-index: 2;
@@ -275,7 +260,6 @@
   z-index: 1;
 }
 
-/* SLIDE FADE */
 .slide.slide-fade-in {
   animation: slideFadeIn 0.6s ease forwards;
   z-index: 2;
@@ -285,7 +269,6 @@
   z-index: 1;
 }
 
-/* SKEW */
 .slide.skew-in {
   animation: skewIn 0.6s ease forwards;
   z-index: 2;
@@ -294,8 +277,6 @@
   animation: skewOut 0.6s ease forwards;
   z-index: 1;
 }
-
-/* ===== KEYFRAMES ===== */
 
 @keyframes rotateIn {
   from {
@@ -307,6 +288,7 @@
     opacity: 1;
   }
 }
+
 @keyframes rotateOut {
   from {
     transform: rotate(0);
@@ -347,6 +329,7 @@
     opacity: 1;
   }
 }
+
 @keyframes slideFadeOut {
   from {
     transform: translateX(0);
@@ -368,6 +351,7 @@
     opacity: 1;
   }
 }
+
 @keyframes skewOut {
   from {
     transform: skewX(0);
