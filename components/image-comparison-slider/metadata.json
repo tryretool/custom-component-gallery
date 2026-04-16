@@ -3,5 +3,5 @@
   "title": "Image Comparison Slider",
   "author": "@keanankoppenhaver",
   "shortDescription": "Before/after image comparison with a draggable reveal slider. Accepts any two image URLs, including Retool Storage links.",
-  "tags": ["UI Components", "Media"]
+  "tags": ["UI Components", "Drag & Drop"]
 }
