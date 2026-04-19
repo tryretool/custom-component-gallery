@@ -1,0 +1,7 @@
+{
+  "id": "pii-masker",
+  "title": "PII Masker",
+  "author": "@tahaamin",
+  "shortDescription": "Mask sensitive PII values (email, phone, card, custom) with a one-click reveal toggle and audit trail support for Retool dashboards.",
+  "tags": ["Forms", "UI Components"]
+}
