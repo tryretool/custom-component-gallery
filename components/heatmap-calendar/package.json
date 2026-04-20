@@ -1,0 +1,27 @@
+{
+  "name": "heatmap-calendar",
+  "version": "1.0.0",
+  "description": "A beautiful GitHub-style activity heatmap for visualizing daily data over time.",
+  "scripts": {
+    "build": "retool-ccl build",
+    "dev": "retool-ccl dev"
+  },
+  "dependencies": {
+    "@tryretool/custom-component-support": "latest",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "retoolCustomComponentLibraryConfig": {
+    "name": "HeatmapCalendar",
+    "label": "HeatmapCalendar",
+    "description": "HeatmapCalendaris",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist",
+    "components": ["HeatmapCalendar"]
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.3"
+  }
+}
