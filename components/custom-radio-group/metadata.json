@@ -1,0 +1,7 @@
+{
+  "id": "custom-radio-group",
+  "title": "Custom Radio Group",
+  "author": "@vagkap",
+  "shortDescription": "A custom radio group component for Retool.",
+  "tags": ["UI Components", "React", "Custom"]
+}
