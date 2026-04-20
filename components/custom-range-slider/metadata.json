@@ -1,0 +1,7 @@
+{
+  "id": "custom-range-slider",
+  "title": "Custom Range Slider",
+  "author": "@vagkap",
+  "shortDescription": "A custom range slider component for Retool.",
+  "tags": ["Charts", "UI Components", "React", "Custom"]
+}
