@@ -1,0 +1,43 @@
+{
+  "name": "custom-email-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@kenjiuno/msgreader": "1.27.1-alpha.1",
+    "@tryretool/custom-component-support": "latest",
+    "buffer": "^6.0.3",
+    "dompurify": "^3.3.1",
+    "postal-mime": "^2.6.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "npx retool-ccl dev",
+    "deploy": "npx retool-ccl deploy"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.55"
+  },
+  "retoolCustomComponentLibraryConfig": {
+    "name": "CustomEmailViewer",
+    "label": "Custom Email Viewer",
+    "description": "A custom component that lets you preview email files",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist"
+  }
+}

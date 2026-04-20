@@ -1,0 +1,7 @@
+{
+  "id": "custom-email-viewer",
+  "title": "Custom Email Viewer",
+  "author": "@vagkap",
+  "shortDescription": "A custom component that let's you preview email files",
+  "tags": ["File Upload", "UI Components", "React", "Custom"]
+}
