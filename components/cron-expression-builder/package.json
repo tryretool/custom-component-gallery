@@ -1,0 +1,45 @@
+{
+  "name": "cron-expression-builder",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@tryretool/custom-component-support": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "npx retool-ccl dev",
+    "deploy": "npx retool-ccl deploy"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.55",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "prettier": "^3.0.3",
+    "typescript": "^5.0.0"
+  },
+  "retoolCustomComponentLibraryConfig": {
+    "name": "CronExpressionBuilder",
+    "label": "Cron Expression Builder",
+    "description": "A visual UI to build cron schedule expressions and fire them back to Retool",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist"
+  }
+}
