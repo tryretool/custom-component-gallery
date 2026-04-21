@@ -1,0 +1,7 @@
+{
+  "id": "approval-chain",
+  "title": "Approval Chain",
+  "author": "@Andrew11",
+  "shortDescription": "A visual multi-step approval flow showing who approved, who's pending, who rejected — with timestamps, avatars, and clickable steps that fire actions back to Retool.",
+  "tags": ["UI Components", "Workflows", "Forms", "React"]
+}
