@@ -1,0 +1,7 @@
+{
+  "id": "pixel-art-editor",
+  "title": "Pixel Art Editor",
+  "author": "@KeananKoppenhaver",
+  "shortDescription": "A 32×32 canvas pixel-art editor with pencil, eraser, flood-fill, color palette, and PNG export — drawing data is pushed back to Retool as a base64 data URL.",
+  "tags": ["Editors", "UI Components", "React", "Custom"]
+}
