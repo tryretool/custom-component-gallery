@@ -1,0 +1,7 @@
+{
+  "id": "vertical-progress-timeline",
+  "title": "Vertical Progress Timeline",
+  "author": "@Snehal_Parate",
+  "shortDescription": "A configurable vertical progress timeline for Retool with status mapping, sorting, date formatting, and theme controls.",
+  "tags": ["UI Components", "Workflows", "React Custom"]
+}

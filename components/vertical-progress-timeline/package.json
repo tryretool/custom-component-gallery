@@ -1,0 +1,12 @@
+{
+  "name": "vertical-progress-timeline-ccl",
+  "version": "1.0.0",
+  "private": true,
+  "retoolCustomComponentLibraryConfig": {
+    "name": "VerticalProgressTimeline",
+    "label": "Vertical Progress Timeline",
+    "description": "A configurable vertical progress timeline component for Retool.",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist"
+  }
+}

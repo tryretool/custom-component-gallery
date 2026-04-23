@@ -1,0 +1,314 @@
+/* ─── Root ─────────────────────────────────────────────────────────────────── */
+.cb-root {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  color: #111827;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  user-select: none;
+}
+
+/* ─── Period tabs ──────────────────────────────────────────────────────────── */
+.cb-period-row {
+  display: flex;
+  border-bottom: 1px solid #d1d5db;
+  background: #f9fafb;
+}
+
+.cb-period {
+  flex: 1;
+  padding: 9px 4px;
+  border: none;
+  border-right: 1px solid #d1d5db;
+  background: transparent;
+  color: #374151;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  font-family: inherit;
+}
+
+.cb-period:last-child { border-right: none; }
+
+.cb-period:hover:not(:disabled) {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+/* Active tab — solid green */
+.cb-period.active {
+  background: #16a34a;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.cb-period:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ─── Body ─────────────────────────────────────────────────────────────────── */
+.cb-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+}
+
+.cb-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cb-lbl {
+  font-size: 12px;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* ─── Stepper ──────────────────────────────────────────────────────────────── */
+.stepper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.step-btn {
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.1s;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-btn:hover:not(:disabled) { background: #e5e7eb; color: #111827; }
+.step-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.step-val {
+  min-width: 32px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  border-left: 1px solid #d1d5db;
+  border-right: 1px solid #d1d5db;
+  line-height: 26px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Time block ───────────────────────────────────────────────────────────── */
+.cb-time-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cb-time-col { display: flex; flex-direction: column; gap: 4px; }
+.cb-field-block { display: flex; flex-direction: column; gap: 4px; }
+
+.cb-field-lbl {
+  font-size: 11px;
+  font-weight: 600;
+  color: #374151;
+  letter-spacing: 0.02em;
+}
+
+/* Drag hint — clearly visible now */
+.cb-drag-hint {
+  font-size: 10px;
+  font-weight: 400;
+  color: #6b7280;
+  font-style: italic;
+  letter-spacing: 0;
+}
+
+/* ─── Chip grid ────────────────────────────────────────────────────────────── */
+.chip-grid-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.chip-grid {
+  display: grid;
+  gap: 3px;
+}
+
+.chip {
+  padding: 4px 2px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  background: #f9fafb;
+  color: #374151;
+  font-size: 10px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.1s;
+  font-variant-numeric: tabular-nums;
+}
+
+.chip:hover:not(.dis) { border-color: #86efac; background: #dcfce7; color: #15803d; }
+.chip.sel { border-color: #16a34a; background: #16a34a; color: #fff; }
+.chip.dis { opacity: 0.4; cursor: not-allowed; }
+
+/* ─── Custom input row ─────────────────────────────────────────────────────── */
+.custom-input-row {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.custom-input {
+  flex: 1;
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  font-size: 11px;
+  color: #111827;
+  background: #fff;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.12s;
+}
+
+.custom-input:focus { border-color: #16a34a; }
+.custom-input::placeholder { color: #9ca3af; }
+.custom-input:disabled { background: #f3f4f6; opacity: 0.5; }
+
+.custom-apply-btn {
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid #16a34a;
+  border-radius: 5px;
+  background: #16a34a;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s;
+  white-space: nowrap;
+}
+
+.custom-apply-btn:hover:not(:disabled) { background: #15803d; }
+.custom-apply-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ─── Day picker ───────────────────────────────────────────────────────────── */
+.day-picker {
+  display: flex;
+  gap: 4px;
+}
+
+.day-chip {
+  flex: 1;
+  height: 34px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #f9fafb;
+  color: #374151;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 32px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.day-chip:hover:not(.dis) { border-color: #86efac; background: #dcfce7; color: #15803d; }
+.day-chip.sel  { border-color: #16a34a; background: #16a34a; color: #fff; }
+.day-chip.drag-add { border-color: #4ade80; background: #bbf7d0; color: #166534; }
+.day-chip.drag-rm  { border-color: #fca5a5; background: #fee2e2; color: #dc2626; }
+.day-chip.dis  { opacity: 0.4; cursor: not-allowed; }
+
+/* ─── Output bar ───────────────────────────────────────────────────────────── */
+/* Lighter dark — #2d3748 instead of near-black */
+.cb-output {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #2d3748;
+  border-top: 1px solid #d1d5db;
+}
+
+.cb-hidden-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.cb-output-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+/* Cron code — bright white, clearly readable */
+.cb-code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f9fafb;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+/* Description — light grey, clearly visible */
+.cb-desc {
+  font-size: 11px;
+  color: #d1d5db;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Copy button — bright green, high contrast ────────────────────────────── */
+.cb-copy {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #16a34a;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+  font-family: inherit;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+.cb-copy:hover { background: #15803d; }
+
+/* Copied state — lighter green with checkmark */
+.cb-copy.ok {
+  background: #4ade80;
+  color: #14532d;
+}

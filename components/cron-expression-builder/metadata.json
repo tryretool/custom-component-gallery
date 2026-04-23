@@ -1,0 +1,7 @@
+{
+  "id": "cron-expression-builder",
+  "title": "Cron Expression Builder",
+  "author": "@marcus9",
+  "shortDescription": "A visual UI to build cron schedule expressions — pick minutes, hours, weekdays and more, and get the live cron string fired back to Retool.",
+  "tags": ["UI Components", "Forms", "Workflows", "React"]
+}
