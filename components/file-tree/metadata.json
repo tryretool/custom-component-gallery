@@ -1,0 +1,12 @@
+  {
+    "name": "file-tree",
+    "title": "File Tree",
+    "description": "An interactive file/folder tree component with expandable nodes, configurable data columns, custom icons per file extension, and full theme control. Ideal for document libraries, file
+  explorers, or any hierarchical data.",
+    "author": "Gilles Bechard",
+    "authorUrl": "https://github.com/Deciderata",
+    "tags": ["tree", "files", "folders", "navigation", "table", "hierarchy"],
+    "version": "1.0.0",
+    "retoolVersion": "3.0",
+    "sourceUrl": "https://github.com/Deciderata/vibe-retool-comp"
+  }

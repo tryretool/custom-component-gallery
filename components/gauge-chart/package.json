@@ -1,0 +1,30 @@
+{
+  "name": "gauge-chart",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@tryretool/custom-component-support": "latest",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-gauge-chart": "^0.5.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "npx retool-ccl dev",
+    "deploy": "npx retool-ccl deploy"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.55",
+    "typescript": "^5.0.0"
+  },
+  "retoolCustomComponentLibraryConfig": {
+    "name": "GaugeChart",
+    "label": "gauge chart",
+    "description": "gauge chart",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist"
+  }
+}
