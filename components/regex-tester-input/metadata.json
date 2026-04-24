@@ -1,0 +1,7 @@
+{
+  "id": "regex-tester-input",
+  "title": "Regex Tester Input",
+  "author": "@naomi0",
+  "shortDescription": "A two-field regex tester — paste a pattern and a test string, see matches highlighted live, and fire { matches, isValid } back to Retool.",
+  "tags": ["UI Components", "Forms", "React", "Custom"]
+}

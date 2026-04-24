@@ -1,0 +1,16 @@
+{
+  "id": "smart-funnel-chart",
+  "title": "Smart Funnel Chart",
+  "author": "@widlestudiollp",
+  "shortDescription": "An intelligent funnel chart that auto-detects data structure and renders responsive 2D/3D funnel visualizations with multiple styles and dynamic layout.",
+  "tags": [
+    "Charts",
+    "React",
+    "Data Visualization",
+    "Analytics",
+    "Dashboard",
+    "Funnel",
+    "Interactive",
+    "Custom"
+  ]
+}

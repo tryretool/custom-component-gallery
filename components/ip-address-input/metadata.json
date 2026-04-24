@@ -1,0 +1,7 @@
+{
+  "id": "ip-address-input",
+  "title": "IP Address Input",
+  "author": "@cmaf",
+  "shortDescription": "A segmented 4-box IPv4 input with auto-jump between segments, 0–255 validation, paste support, and fires the full IP string back to Retool.",
+  "tags": ["UI Components", "Forms", "React", "Custom"]
+}

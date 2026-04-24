@@ -1,0 +1,17 @@
+{
+    "id": "dynamic-kpi-cards",
+    "title": "Dynamic KPI Cards",
+    "author": "@widlestudiollp",
+    "shortDescription": "Auto-detects fields and renders responsive KPI cards with trends, secondary metrics, and full customization.",
+    "tags": [
+        "Charts",
+        "React",
+        "UI Components",
+        "Analytics",
+        "Dashboard",
+        "Data Visualization",
+        "Custom",
+        "Retool",
+        "Interactive"
+    ]
+}

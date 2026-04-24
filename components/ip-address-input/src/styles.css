@@ -1,0 +1,122 @@
+/* ─── Root ─────────────────────────────────────────────────────────────────── */
+.ip-root {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+}
+
+/* ─── Label ────────────────────────────────────────────────────────────────── */
+.ip-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  letter-spacing: 0.01em;
+}
+
+/* ─── Box ──────────────────────────────────────────────────────────────────── */
+.ip-box {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #ffffff;
+  border: 2px solid #d1d5db;
+  border-radius: 10px;
+  padding: 4px 8px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: fit-content;
+}
+
+.ip-box:focus-within {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+.ip-box.valid {
+  border-color: #16a34a;
+}
+
+.ip-box.valid:focus-within {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+}
+
+.ip-box.disabled {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ─── Segment wrapper ──────────────────────────────────────────────────────── */
+.ip-seg-wrap {
+  display: flex;
+  align-items: center;
+}
+
+/* ─── Segment input ────────────────────────────────────────────────────────── */
+.ip-segment {
+  width: 44px;
+  height: 36px;
+  border: none;
+  outline: none;
+  background: transparent;
+  text-align: center;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  caret-color: #0ea5e9;
+  border-radius: 6px;
+  transition: background 0.12s;
+}
+
+.ip-segment:focus {
+  background: #f0f9ff;
+}
+
+.ip-segment::placeholder {
+  color: #cbd5e1;
+  font-weight: 400;
+}
+
+.ip-segment.error {
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+.ip-segment.disabled {
+  cursor: not-allowed;
+  color: #9ca3af;
+}
+
+/* Remove number input spinners */
+.ip-segment::-webkit-outer-spin-button,
+.ip-segment::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ─── Dot separator ────────────────────────────────────────────────────────── */
+.ip-dot {
+  font-size: 20px;
+  font-weight: 700;
+  color: #94a3b8;
+  line-height: 1;
+  padding: 0 2px;
+  user-select: none;
+}
+
+/* ─── Valid badge ──────────────────────────────────────────────────────────── */
+.ip-valid-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-left: 6px;
+  background: #dcfce7;
+  border-radius: 50%;
+  color: #16a34a;
+  flex-shrink: 0;
+}

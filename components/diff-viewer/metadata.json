@@ -1,0 +1,7 @@
+{
+  "id": "diff-viewer",
+  "title": "Diff Viewer",
+  "author": "@Snehal_Parate",
+  "shortDescription": "Compare two JSON or text inputs with side-by-side or inline views, change highlighting, search/sort controls, and field-level detail inspection.",
+  "tags": ["React", "Custom", "UI Components"]
+}
