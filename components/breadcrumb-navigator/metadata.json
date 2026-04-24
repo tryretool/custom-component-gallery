@@ -1,0 +1,7 @@
+{
+  "id": "breadcrumb-navigator",
+  "title": "Breadcrumb Navigator",
+  "author": "@Zalim",
+  "shortDescription": "A dynamic clickable breadcrumb trail — Home > Customers > Ahmed > Orders — that updates based on navigation state in a Retool app.",
+  "tags": ["Navigation", "UI Components", "React", "Custom"]
+}

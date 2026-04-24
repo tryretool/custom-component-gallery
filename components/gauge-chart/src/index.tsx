@@ -1,0 +1,1 @@
+export { GaugeChartComponent } from "./GaugeChartComponent";

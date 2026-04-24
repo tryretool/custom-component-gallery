@@ -1,0 +1,1 @@
+export { SmartThreeDChart } from './component/index';

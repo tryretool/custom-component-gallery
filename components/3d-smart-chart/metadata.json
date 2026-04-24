@@ -1,0 +1,17 @@
+{
+    "id": "smart-3d-chart",
+    "title": "Smart 3D Chart",
+    "author": "@widlestudiollp",
+    "shortDescription": "An intelligent chart component that auto-detects data structure and renders interactive 3D-enhanced charts with multiple visualization options.",
+    "tags": [
+        "Chart.js",
+        "Visualization",
+        "3D Charts",
+        "React",
+        "Analytics",
+        "Dashboard",
+        "Data Visualization",
+        "Retool",
+        "Interactive"
+    ]
+}
