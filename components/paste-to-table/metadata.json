@@ -1,0 +1,7 @@
+{
+  "id": "paste-to-table",
+  "title": "Paste to Table (CSV Preview)",
+  "author": "@amara",
+  "shortDescription": "Paste raw CSV text and instantly see it rendered as a clean preview table. Fires the parsed array back to Retool for use in queries and workflows.",
+  "tags": ["Data Tables", "UI Components", "Forms", "React", "Custom"]
+}

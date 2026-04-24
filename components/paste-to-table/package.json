@@ -1,0 +1,30 @@
+{
+  "name": "paste-to-table",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@tryretool/custom-component-support": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "papaparse": "^5.4.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "npx retool-ccl dev",
+    "deploy": "npx retool-ccl deploy"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.55",
+    "@types/papaparse": "^5.3.14",
+    "typescript": "^5.0.0"
+  },
+  "retoolCustomComponentLibraryConfig": {
+    "name": "PasteToTable",
+    "label": "Paste to Table",
+    "description": "Paste to Table",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist"
+  }
+}
