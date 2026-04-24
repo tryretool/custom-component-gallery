@@ -1,0 +1,7 @@
+{
+  "id": "multi-handle-range-slider",
+  "title": "Multi-Handle Range Slider",
+  "author": "@zarakimani",
+  "shortDescription": "A slider with 3 or more draggable handles — define multiple price tiers, ranges, or thresholds simultaneously on a single track.",
+  "tags": ["UI Components", "Forms", "React", "Custom"]
+}

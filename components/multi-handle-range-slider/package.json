@@ -1,0 +1,28 @@
+{
+  "name": "multi-handle-range-slider",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@tryretool/custom-component-support": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "npx retool-ccl dev",
+    "deploy": "npx retool-ccl deploy"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.55",
+    "typescript": "^5.0.0"
+  },
+  "retoolCustomComponentLibraryConfig": {
+    "name": "MultiHandleRangeSlider",
+    "label": "Multi Handle Range Slider",
+    "description": " A slider with 3 or more draggable handles for defining multiple price tiers or ranges",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist"
+  }
+}
