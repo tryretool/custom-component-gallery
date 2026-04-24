@@ -1,0 +1,7 @@
+{
+  "id": "gradient-builder",
+  "title": "Gradient Builder",
+  "author": "@Musfirah",
+  "shortDescription": "A visual gradient builder — pick two or more colors, set the angle, preview the gradient live, and copy the CSS code. Fires the gradient string back to Retool.",
+  "tags": ["UI Components", "React", "Custom"]
+}

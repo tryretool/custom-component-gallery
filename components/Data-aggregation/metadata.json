@@ -1,0 +1,19 @@
+{
+  "id": "smart-aggregation-builder",
+  "title": "Smart Aggregation Builder",
+  "author": "@widlestudiollp",
+  "shortDescription": "An interactive data aggregation tool for Retool with dynamic group-by, multiple aggregations, and CSV export.",
+  "description": "Smart Aggregation Builder is a powerful Retool custom component that enables users to group and aggregate data dynamically without writing queries. It supports sum, average, and count operations with an intuitive UI, validation, and export functionality.",
+  "tags": [
+    "Retool",
+    "Aggregation",
+    "Data",
+    "Analytics",
+    "Dashboard",
+    "No-Code",
+    "Low-Code",
+    "React",
+    "Visualization",
+    "Table"
+  ]
+}

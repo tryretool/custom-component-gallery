@@ -1,0 +1,7 @@
+{
+  "id": "multi-metric-progress",
+  "title": "Multi-Metric Progress Stack",
+  "author": "@justingalloway",
+  "shortDescription": "Multiple stacked progress bars in one component — each with its own label, value, color, and max. Like a battery breakdown for dashboards.",
+  "tags": ["Charts", "UI Components", "Data Tables", "React", "Custom"]
+}

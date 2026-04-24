@@ -1,0 +1,16 @@
+{
+  "id": "indoor-map",
+  "title": "Indoor Seat Map",
+  "author": "@widlestudiollp",
+  "shortDescription": "An interactive indoor seat layout component with booking, edit mode, zone filtering, and theme customization for Retool apps.",
+  "tags": [
+    "Seat Map",
+    "Booking",
+    "Layout Editor",
+    "Indoor Map",
+    "Visualization",
+    "Interactive",
+    "Retool",
+    "UI Component"
+  ]
+}
