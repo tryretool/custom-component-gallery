@@ -1,0 +1,7 @@
+{
+  "id": "brick-budget-visualizer",
+  "title": "Brick / Block Budget Visualizer",
+  "author": "@tylerbrooks",
+  "shortDescription": "A visual budget tracker where each brick represents a fixed unit — as you allocate, bricks fill up like a wall being built. More intuitive than a progress bar for non-technical stakeholders.",
+  "tags": ["Charts", "UI Components", "Data Tables", "React", "Custom"]
+}

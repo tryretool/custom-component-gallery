@@ -1,0 +1,28 @@
+{
+  "name": "brick-budget-visualizer",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@tryretool/custom-component-support": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "npx retool-ccl dev",
+    "deploy": "npx retool-ccl deploy"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.55",
+    "typescript": "^5.0.0"
+  },
+  "retoolCustomComponentLibraryConfig": {
+    "name": "BrickBudgetVisualizer",
+    "label": "Brick Budget Visualizer",
+    "description": "A visual budget tracker where each brick represents a fixed unit of money or resource",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist"
+  }
+}
