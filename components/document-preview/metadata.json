@@ -1,0 +1,7 @@
+{
+  "id": "document-preview",
+  "title": "Document Preview",
+  "author": "@Toby_Vertommen",
+  "shortDescription": "Renders PDF and image documents inside Retool with bounding box overlays for annotating and highlighting specific regions on the document.",
+  "tags": ["File Upload", "UI Components", "React Custom"]
+}
