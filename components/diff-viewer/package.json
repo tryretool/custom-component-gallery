@@ -1,0 +1,18 @@
+{
+  "name": "diff-viewer-ccl",
+  "version": "1.0.0",
+  "private": true,
+  "retoolCustomComponentLibraryConfig": {
+    "name": "DiffViewer",
+    "label": "Diff Viewer",
+    "description": "Compare JSON and text values with visual change highlighting for Retool.",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist"
+  },
+  "dependencies": {
+    "@tryretool/custom-component-support": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-diff-viewer-continued": "^4.2.0"
+  }
+}
