@@ -1,0 +1,28 @@
+{
+  "name": "regex-tester-input",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@tryretool/custom-component-support": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "npx retool-ccl dev",
+    "deploy": "npx retool-ccl deploy"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.55",
+    "typescript": "^5.0.0"
+  },
+  "retoolCustomComponentLibraryConfig": {
+    "name": "RegexTesterInput",
+    "label": "Regex Tester Input",
+    "description": "Regex Tester Input",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist"
+  }
+}

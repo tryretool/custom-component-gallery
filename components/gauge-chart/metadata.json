@@ -1,0 +1,7 @@
+{
+  "id": "gauge-chart",
+  "title": "Gauge / Speedometer Chart",
+  "author": "@zainultra",
+  "shortDescription": "A half-circle gauge dial for displaying a single metric — CPU usage, satisfaction score, budget used — with configurable color zones and a live needle.",
+  "tags": ["Charts", "UI Components", "React", "Custom"]
+}

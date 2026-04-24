@@ -1,0 +1,17 @@
+{
+  "id": "cohort-analysis-chart",
+  "title": "Cohort Analysis Chart",
+  "author": "@widlestudiollp",
+  "shortDescription": "An interactive cohort heatmap that auto-detects data fields and visualizes retention and trends with dynamic intensity scaling.",
+  "tags": [
+    "Charts",
+    "React",
+    "Data Visualization",
+    "Analytics",
+    "Dashboard",
+    "Heatmap",
+    "Cohort Analysis",
+    "Interactive",
+    "Custom"
+  ]
+}

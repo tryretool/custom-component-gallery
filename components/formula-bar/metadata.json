@@ -1,0 +1,7 @@
+{
+  "id": "formula-bar",
+  "title": "Formula Bar (Like Excel)",
+  "author": "@sofia",
+  "shortDescription": "An Excel-style formula input — type expressions like =SUM(price * qty * 1.1) and evaluate them live against row data passed from Retool.",
+  "tags": ["UI Components", "Forms", "Data Tables", "React", "Custom"]
+}
