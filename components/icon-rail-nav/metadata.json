@@ -1,0 +1,7 @@
+{
+     "id": "icon-rail-nav",
+     "title": "Icon Rail Nav",
+     "author": "@rgreen",
+     "shortDescription": "A screen-efficient navigation component with a compact icon rail, contextual sub-item panel, and slide-reveal labels on hover. Inspired by Supabase.",
+     "tags": ["Navigation", "Sidebar", "Layout", "UI"]
+   }
