@@ -1,0 +1,27 @@
+{
+  "name": "dossche-mills-document-preview",
+  "version": "1.0.0",
+  "description": "Retool custom component collection — document preview with bounding box support",
+  "scripts": {
+    "build": "tsc --noEmit && retool-ccl build",
+    "deploy": "export $(grep -v '^#' .env | xargs) && tsc --noEmit && retool-ccl deploy --url https://sixthgeneration.retool.com",
+    "dev": "export $(grep -v '^#' .env | xargs) && retool-ccl dev --url https://sixthgeneration.retool.com"
+  },
+  "retoolCustomComponentLibraryConfig": {
+    "name": "DosschemillsDocumentPreview",
+    "label": "DosschemillsDocumentPreview",
+    "description": "Dossche Mills - Document preview custom component",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@tryretool/custom-component-support": "^1.9.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "typescript": "^5.5.0"
+  }
+}
