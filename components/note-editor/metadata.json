@@ -1,0 +1,18 @@
+{
+  "id": "file-editor-notes",
+  "title": "File Editor Notes",
+  "author": "@widlestudiollp",
+  "shortDescription": "A flexible notes management component that supports grouping, editing, filtering, and dynamic database field mapping with full CRUD integration in Retool.",
+  "tags": [
+    "Notes",
+    "Editor",
+    "CRUD",
+    "React",
+    "Retool",
+    "Data Management",
+    "Dashboard",
+    "Dynamic Fields",
+    "Productivity",
+    "UI Component"
+  ]
+}
