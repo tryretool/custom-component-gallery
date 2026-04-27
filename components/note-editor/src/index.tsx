@@ -1,0 +1,1 @@
+export { FileEditorNotes } from './component/index';
