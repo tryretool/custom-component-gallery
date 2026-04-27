@@ -1,0 +1,7 @@
+{
+  "id": "smart-data-viewer",
+  "title": "Smart Data Viewer",
+  "author": "@widlestudiollp",
+  "shortDescription": "An intelligent data inspection component for Retool that analyzes structured input and automatically renders fields using adaptive UI patterns like cards, tables, tags, badges, and nested object explorers.",
+  "tags": ["Data Viewer", "JSON Viewer", "Object Inspector", "Retool", "Developer Tools"]
+}
