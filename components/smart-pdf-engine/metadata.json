@@ -1,0 +1,16 @@
+{
+  "id": "smart-auto-pdf-engine",
+  "title": "Smart Auto PDF Engine",
+  "author": "@widlestudiollp",
+  "shortDescription": "A fully automated PDF generation engine that intelligently interprets any JSON data and transforms it into a structured, responsive document with preview and download capabilities.",
+  "tags": [
+    "PDF Generator",
+    "Auto Layout",
+    "Smart Rendering",
+    "Invoices",
+    "Reports",
+    "Data Processing",
+    "No-Code",
+    "Retool"
+  ]
+}
