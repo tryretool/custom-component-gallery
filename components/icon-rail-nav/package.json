@@ -1,0 +1,64 @@
+{
+  "name": "icon-rail-nav",
+  "version": "1.0.0",
+  "description": "A collapsible icon rail navigation sidebar for Retool.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npx retool-ccl dev",
+    "deploy": "npx retool-ccl deploy",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tryretool/custom-component-support": "^1.0.0",
+    "react-dom": "^18.2.0",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.0.0",
+    "vitest": "^4.0.17"
+  },
+  "retoolCustomComponentLibraryConfig": {
+    "name": "RodGreenLibrary",
+    "label": "RodGreen Library",
+    "description": "My Retool Experiments",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist",
+    "components": [
+      {
+        "id": "IconRailNav",
+        "name": "Icon Rail Nav",
+        "description": "Icon rail + contextual panel nav. Hover reveals item labels. Click shows sub-items or description in the right panel.",
+        "model": {
+          "menuEditorVisibility": "hide",
+          "helpVisibility": "show",
+          "itemsJson": "[{\"id\":\"item-1\",\"label\":\"Item 1\",\"icon\":\"table\",\"description\":\"Description for Item 1.\"},{\"id\":\"item-2\",\"label\":\"Item 2\",\"icon\":\"code\",\"description\":\"Description for Item 2.\"},{\"id\":\"item-3\",\"label\":\"Item 3\",\"icon\":\"database\",\"subItems\":[{\"id\":\"item-3-a\",\"label\":\"Sub Item A\"},{\"id\":\"item-3-b\",\"label\":\"Sub Item B\"},{\"id\":\"item-3-c\",\"label\":\"Sub Item C\"}]},{\"id\":\"item-4\",\"label\":\"Item 4\",\"icon\":\"chart\",\"badge\":\"New\",\"description\":\"Description for Item 4.\"}]",
+          "projectName": "Main Menu",
+          "projectStatus": "online",
+          "activeItem": "item-1",
+          "activeSubItem": "",
+          "activePage": "",
+          "activeApp": "",
+          "menuJsonDraft": "",
+          "bottomItemsJson": "[{\"id\":\"settings\",\"label\":\"Settings\",\"icon\":\"settings\",\"description\":\"Configure your project settings.\"}]",
+          "theme": "dark",
+          "railBg": "",
+          "panelBg": "",
+          "accentColor": "#3ecf8e",
+          "menuItems": [],
+          "pageOptions": [],
+          "appOptions": [],
+          "padding": 0
+        },
+        "events": [
+          { "label": "Item clicked",     "name": "itemClick" },
+          { "label": "Sub-item clicked", "name": "subItemClick" },
+          { "label": "Navigate",         "name": "navigate" },
+          { "label": "Save menu",        "name": "saveMenu" }
+        ]
+      }
+    ]
+  }
+}
