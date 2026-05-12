@@ -1,0 +1,17 @@
+{
+  "id": "expandable-row-table",
+  "title": "Expandable Row Table",
+  "author": "@widlestudiollp",
+  "shortDescription": "An advanced expandable row table component for Retool with nested JSON rendering, drag-and-drop column rearranging, pagination, sorting, filtering, CSV export, and enterprise-style data grid interactions.",
+  "tags": [
+    "Table",
+    "Data Grid",
+    "Expandable Rows",
+    "Analytics",
+    "JSON Viewer",
+    "Dashboard",
+    "React",
+    "TypeScript",
+    "Retool"
+  ]
+}
