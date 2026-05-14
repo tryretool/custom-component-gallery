@@ -1,0 +1,7 @@
+{
+  "id": "plot-twist",
+  "title": "Plot Twist",
+  "author": "@WaelFa",
+  "shortDescription": "A collaborative, hand-drawn whiteboard component for sketching diagrams and wireframes with an infinite canvas and robust undo/redo support.",
+  "tags": ["UI Components", "Custom", "React", "Export"]
+}
