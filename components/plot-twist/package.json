@@ -1,0 +1,50 @@
+{
+  "name": "custom-component-collection",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@tryretool/custom-component-support": "latest",
+    "perfect-freehand": "^1.2.0",
+    "qrcode.react": "^4.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "roughjs": "^4.6.6"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "npx retool-ccl dev",
+    "deploy": "npx retool-ccl deploy",
+    "test": "vitest"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.55",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "postcss-modules": "^6.0.0",
+    "prettier": "^3.0.3",
+    "vitest": "^1.6.0"
+  },
+  "retoolCustomComponentLibraryConfig": {
+    "name": "Plot Twist",
+    "label": "plot-twist",
+    "description": "Infinite collaborative whiteboard component",
+    "entryPoint": "src/index.tsx",
+    "outputPath": "dist"
+  }
+}
