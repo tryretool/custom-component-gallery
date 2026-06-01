@@ -1,0 +1,18 @@
+{
+    "id": "custom-loader-component",
+    "title": "Custom Loader",
+    "author": "@widlestudiollp",
+    "shortDescription": "A highly customizable loading component for Retool featuring spinners, progress indicators, skeleton screens, step tracking, overlay and fullscreen modes, dynamic query-state integration, success/error states, and responsive design.",
+    "tags": [
+        "Loader",
+        "Loading State",
+        "Progress",
+        "Skeleton",
+        "UX",
+        "Retool",
+        "Dashboard",
+        "Spinner",
+        "Overlay",
+        "Fullscreen"
+    ]
+}
