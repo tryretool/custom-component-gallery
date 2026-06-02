@@ -1,0 +1,234 @@
+/* All classes prefixed with dm-dp- to avoid conflicts with Retool's own styles */
+
+.dm-dp-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: #f4f4f5;
+  border-radius: 6px;
+  overflow: hidden;
+  font-family: system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Image area */
+.dm-dp-image-wrapper {
+  position: relative;
+  flex: 1;
+  overflow: hidden;      /* clip zoomed content; no scroll — pan is via transform */
+  background: #e8e8ea;
+  min-height: 0;
+  cursor: grab;
+  user-select: none;
+}
+
+.dm-dp-image-wrapper--dragging {
+  cursor: grabbing;
+}
+
+/* Zoom canvas: fills the wrapper, centered via flex.
+   Only translate() is applied here — no scale(), which would blur the image.
+   The image's actual pixel dimensions are set inline to zoom * fitSize. */
+.dm-dp-canvas {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.dm-dp-image {
+  /* Fallback sizing before explicit dimensions are computed on load */
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  display: block;
+  pointer-events: none;
+}
+
+/* Loading overlay */
+.dm-dp-loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(228, 228, 234, 0.7);
+  z-index: 2;
+}
+
+.dm-dp-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(0, 0, 0, 0.12);
+  border-top-color: #1677ff;
+  border-radius: 50%;
+  animation: dm-dp-spin 0.7s linear infinite;
+}
+
+@keyframes dm-dp-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error state */
+.dm-dp-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.dm-dp-url-hint {
+  font-size: 11px;
+  color: #9ca3af;
+  word-break: break-all;
+  max-width: 280px;
+  text-align: center;
+}
+
+/* ── Bounding box SVG overlay ─────────────────────────────────────────────── */
+
+.dm-dp-overlay {
+  position: absolute;
+  overflow: visible;
+  z-index: 1;
+}
+
+.dm-dp-box-group {
+  cursor: crosshair;
+}
+
+/* Default box: faint blue outline, no fill */
+.dm-dp-box {
+  fill: transparent;
+  stroke: rgba(22, 119, 255, 0.30);
+  stroke-width: 1.5px;
+  rx: 2;
+  transition: fill 0.1s ease, stroke 0.1s ease;
+}
+
+/* Active box (hovered or highlighted from Retool) */
+.dm-dp-box--active {
+  fill: rgba(22, 119, 255, 0.12);
+  stroke: #1677ff;
+  stroke-width: 2px;
+}
+
+/* Tooltip rendered inside a <foreignObject> above the active box */
+.dm-dp-box-tooltip {
+  display: inline-block;
+  background: rgba(9, 88, 217, 0.88);
+  color: #fff;
+  font-size: 11px;
+  font-family: system-ui, sans-serif;
+  line-height: 1;
+  padding: 4px 7px;
+  border-radius: 3px;
+  white-space: nowrap;
+  pointer-events: none;
+  backdrop-filter: blur(2px);
+}
+
+/* ── Reset / recenter button ──────────────────────────────────────────────── */
+
+.dm-dp-reset-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 3;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #374151;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  backdrop-filter: blur(4px);
+  padding: 0;
+}
+
+.dm-dp-reset-btn:hover {
+  background: #fff;
+  border-color: #9ca3af;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
+}
+
+.dm-dp-reset-btn:active {
+  background: #f3f4f6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.10);
+}
+
+/* ── Navigation controls ──────────────────────────────────────────────────── */
+
+.dm-dp-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.dm-dp-nav-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: #374151;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.dm-dp-nav-btn:hover:not(:disabled) {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.dm-dp-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.dm-dp-page-indicator {
+  font-size: 13px;
+  color: #6b7280;
+  min-width: 48px;
+  text-align: center;
+}
+
+/* Empty state */
+.dm-dp-empty {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 13px;
+  font-family: system-ui, sans-serif;
+  box-sizing: border-box;
+}
